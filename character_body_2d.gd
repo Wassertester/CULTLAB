@@ -123,7 +123,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	#print(rotation)
 	#print(rotation_degrees)
-	
+	#funst dieses drecks Github jetzt endlich?
 
 # Handle jump.
 func _process(delta: float) -> void:
@@ -131,3 +131,5 @@ func _process(delta: float) -> void:
 		jump_held += delta * 0.5
 	else:
 		jump_held = 1
+		
+		
