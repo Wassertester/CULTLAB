@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://b76mobpe643tr"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_dvg5l"]
+[ext_resource type="Texture2D" uid="uid://b84rk1q61ba2" path="res://sprites/charecter/idle1.png" id="1_u5w7p"]
+[ext_resource type="Texture2D" uid="uid://dre5shsjw6xio" path="res://sprites/charecter/idle2.png" id="2_2ngth"]
+[ext_resource type="Texture2D" uid="uid://g48f6fqgfefu" path="res://sprites/charecter/bounce.png" id="2_e4q01"]
+[ext_resource type="Texture2D" uid="uid://b0gmg4uuxp06t" path="res://sprites/charecter/idle3.png" id="3_bcp33"]
+[ext_resource type="Texture2D" uid="uid://bbx2t83p4g23r" path="res://sprites/charecter/idle4.png" id="4_pos2t"]
+[ext_resource type="Texture2D" uid="uid://buh6kurc3d3va" path="res://sprites/charecter/jump1.png" id="6_fa7yg"]
+[ext_resource type="Script" path="res://animated_sprite_2d.gd" id="6_v7unu"]
+[ext_resource type="Texture2D" uid="uid://bmsn6bramgwas" path="res://sprites/charecter/jump2.png" id="7_1relt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_83nbq"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mdp5k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e4q01")
+}, {
+"duration": 999999.0,
+"texture": ExtResource("1_u5w7p")
+}],
+"loop": true,
+"name": &"bounce",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_u5w7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2ngth")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bcp33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pos2t")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_fa7yg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1relt")
+}, {
+"duration": 999999.0,
+"texture": ExtResource("1_u5w7p")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_u5w7p")
+}],
+"loop": true,
+"name": &"no_animation",
+"speed": 1.0
+}]
+
+[node name="player" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_dvg5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_83nbq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_mdp5k")
+animation = &"idle"
+autoplay = "idle"
+script = ExtResource("6_v7unu")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
