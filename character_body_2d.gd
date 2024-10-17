@@ -115,7 +115,6 @@ func _physics_process(delta: float) -> void:
 		timer = 0
 		animated_sprite.stop()
 		
-	
 	move_and_slide()
 	#print(rotation)
 	#print(rotation_degrees)
@@ -127,18 +126,20 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("jump"):
 		if not jump_held > max_jump_multiplier:
 			jump_held += delta * 0.5
+			
 	else:
 		jump_held = 1.0
+		
 	
 	# particles
-	if jump_held > 1.1:
-		particles.initial_velocity_max = jump_held * 22
-		particles.initial_velocity_min = jump_held * 22
+	if jump_held > 1.2:
+		particles.initial_velocity_max = exp(jump_held + 2) * 1.5
+		particles.initial_velocity_min = exp(jump_held + 2) * 1.5
 		particles.emitting = true
 	else:
+		particles.initial_velocity_max = 11
+		particles.initial_velocity_min = 11
 		particles.emitting = false
-	
-	
 	
 	
 	
