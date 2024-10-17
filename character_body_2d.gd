@@ -1,11 +1,12 @@
 extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 const move_rot = 0.00016
-const SPEED = 300.0
-const JUMP_VELOCITY = -300.0
+const SPEED = 250.0
+const JUMP_VELOCITY = -250.0
 const rotation_multiplier = 0.025
 const head_bounce_multiplier = 0.8
 const friction = 0.8667
+const max_jump_multiplier = 1.9
 enum {boden, decke, wandl, wandr}
 var rotation_speed = 0.0
 var velocity_last_frame
@@ -17,7 +18,9 @@ var switch_x
 var velocity_bounce
 var timer = 0.0
 var jump_held = 1
-var crash
+@onready var particles: CPUParticles2D = $CPUParticles2D
+
+
 # velocity reset 
 func stop():
 	velocity.x = 0
@@ -53,11 +56,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_released("jump") and is_on_floor() and rotation >= -1.1 and rotation <= 1.1:
 		jump(rotation, jump_held)
-		#if rotation >= 0:
-			#velocity.y = JUMP_VELOCITY / log(rotation +2)
-		#else:
-			#velocity.y = JUMP_VELOCITY / log(((rotation * -1) + 2))
-	# rotation
+
 	if Input.is_action_pressed("left") and not Input.is_action_just_pressed("right"):
 		rotation_speed -= rotation_multiplier
 	if Input.is_action_pressed("right") and not Input.is_action_just_pressed("left"):
@@ -125,11 +124,22 @@ func _physics_process(delta: float) -> void:
 # Handle jump.
 func _process(delta: float) -> void:
 	
-	if not jump_held > 1.70:
-		if Input.is_action_pressed("jump"):
-			jump_held += delta * 0.300
-		else:
-			jump_held = 1
+	if Input.is_action_pressed("jump"):
+		if not jump_held > max_jump_multiplier:
+			jump_held += delta * 0.5
 	else:
-		jump_held = 1
-		
+		jump_held = 1.0
+	
+	# particles
+	if jump_held > 1.1:
+		particles.initial_velocity_max = jump_held * 22
+		particles.initial_velocity_min = jump_held * 22
+		particles.emitting = true
+	else:
+		particles.emitting = false
+	
+	
+	
+	
+	
+	
