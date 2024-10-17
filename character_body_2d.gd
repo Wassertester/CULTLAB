@@ -87,7 +87,6 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall() and rotation > -3.1 and rotation < -0.5:
 		animated_sprite.play("no_animation")
 		animated_sprite.play("bounce")
-		print("bounce")
 		if rotation >= 0:
 			switched_rotation = rotation - PI
 		else:
@@ -117,8 +116,6 @@ func _physics_process(delta: float) -> void:
 		timer = 0
 		animated_sprite.stop()
 		
-	if rotation > 3:
-		velocity.x = crash 
 	
 	move_and_slide()
 	#print(rotation)
@@ -127,9 +124,12 @@ func _physics_process(delta: float) -> void:
 
 # Handle jump.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("jump"):
-		jump_held += delta * 0.5
+	
+	if not jump_held > 1.70:
+		if Input.is_action_pressed("jump"):
+			jump_held += delta * 0.300
+		else:
+			jump_held = 1
 	else:
 		jump_held = 1
-		
 		

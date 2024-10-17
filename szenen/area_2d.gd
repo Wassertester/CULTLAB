@@ -1,4 +1,5 @@
 extends Area2D
+
 @onready var body: CharacterBody2D = $CharacterBody2D
 @onready var player: Node2D = $"../player"
 
@@ -7,7 +8,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
