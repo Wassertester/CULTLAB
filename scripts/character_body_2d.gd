@@ -125,7 +125,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("jump"):
 		if not jump_held > max_jump_multiplier:
-			jump_held += delta * 0.5
+			jump_held += delta
 			
 	else:
 		jump_held = 1.0

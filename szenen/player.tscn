@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://b76mobpe643tr"]
 
-[ext_resource type="Script" path="res://character_body_2d.gd" id="1_dvg5l"]
+[ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
 [ext_resource type="Texture2D" uid="uid://b84rk1q61ba2" path="res://sprites/charecter/idle1.png" id="1_u5w7p"]
 [ext_resource type="Texture2D" uid="uid://dre5shsjw6xio" path="res://sprites/charecter/idle2.png" id="2_2ngth"]
 [ext_resource type="Texture2D" uid="uid://g48f6fqgfefu" path="res://sprites/charecter/bounce.png" id="2_e4q01"]
 [ext_resource type="Texture2D" uid="uid://b0gmg4uuxp06t" path="res://sprites/charecter/idle3.png" id="3_bcp33"]
 [ext_resource type="Texture2D" uid="uid://bbx2t83p4g23r" path="res://sprites/charecter/idle4.png" id="4_pos2t"]
 [ext_resource type="Texture2D" uid="uid://buh6kurc3d3va" path="res://sprites/charecter/jump1.png" id="6_fa7yg"]
-[ext_resource type="Script" path="res://animated_sprite_2d.gd" id="6_v7unu"]
+[ext_resource type="Script" path="res://scripts/animated_sprite_2d.gd" id="6_v7unu"]
 [ext_resource type="Texture2D" uid="uid://bmsn6bramgwas" path="res://sprites/charecter/jump2.png" id="7_1relt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_83nbq"]
