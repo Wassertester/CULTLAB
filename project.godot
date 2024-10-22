@@ -15,6 +15,13 @@ run/main_scene="res://szenen/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://sprites/icon.svg"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="Kultlab 24-25"
