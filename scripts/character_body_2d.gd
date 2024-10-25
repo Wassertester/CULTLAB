@@ -42,7 +42,8 @@ func rotation_switch():
 	return output
 
 func _physics_process(delta: float) -> void:
-	 #auf Boden verlangsamen
+	
+	 # auf Boden verlangsamenw
 	if is_on_floor() and floor_last_frame:
 		velocity.x *= friction
 	#erst nach einem frame verlangsamen wegen Hut jump

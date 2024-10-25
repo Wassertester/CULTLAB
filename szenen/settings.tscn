@@ -45,7 +45,7 @@ popup/item_2/id = 2
 
 [node name="Fullscreen_windowed" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-selected = 2
+selected = 1
 item_count = 4
 popup/item_0/text = "Fullscreen"
 popup/item_1/text = "Windowed"
@@ -54,6 +54,11 @@ popup/item_2/text = "Windowed Borderless"
 popup/item_2/id = 2
 popup/item_3/text = "Fullscreen Borderless"
 popup/item_3/id = 3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, 7)
+enabled = false
+zoom = Vector2(5, 5)
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]

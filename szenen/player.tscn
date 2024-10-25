@@ -69,24 +69,25 @@ animations = [{
 
 [node name="player" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="player_script" type="CharacterBody2D" parent="."]
+position = Vector2(-14424, -130)
 script = ExtResource("1_dvg5l")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_script"]
 shape = SubResource("CapsuleShape2D_83nbq")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player_script"]
 sprite_frames = SubResource("SpriteFrames_mdp5k")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("6_v7unu")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+[node name="Camera2D" type="Camera2D" parent="player_script"]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="CharacterBody2D"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="player_script"]
 position = Vector2(0, 6)
 lifetime = 0.3
 emission_shape = 1
