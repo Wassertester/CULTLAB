@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3lcmqisiyf8l"]
+[gd_scene load_steps=3 format=3 uid="uid://b3lcmqisiyf8l"]
 
 [ext_resource type="Script" path="res://settings.gd" id="1_4faad"]
+
+[sub_resource type="GDScript" id="GDScript_0is04"]
+script/source = "extends Camera2D
+
+func _on_camera(str) -> void:
+	if str == \"menu\":
+		enabled = true
+	else:
+		enabled = false
+"
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -55,12 +65,18 @@ popup/item_2/id = 2
 popup/item_3/text = "Fullscreen Borderless"
 popup/item_3/id = 3
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="resume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="settings_cam" type="Camera2D" parent="."]
 position = Vector2(1, 7)
 enabled = false
 zoom = Vector2(5, 5)
+script = SubResource("GDScript_0is04")
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Fullscreen_windowed" to="." method="_on_fullscreen_windowed_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]

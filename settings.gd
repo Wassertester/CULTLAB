@@ -1,6 +1,7 @@
 extends Control
-@onready var settins_cam: Camera2D = $Camera2D
+@onready var settins_cam: Camera2D = $settings_cam
 @onready var player_cam: Camera2D = $player/player_script/Camera2D
+@onready var game_ref: Node2D = $".."
 
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(0,value)
@@ -56,3 +57,15 @@ func _on_area_2d_2_area_entered(area: Area2D) -> void:
 	else:
 		player_cam.enabled = false
 		settins_cam.enabled = true
+
+
+func _on_game_camera(str) -> void:
+	if str == "menu":
+		settins_cam.enabled = true
+	else:
+		settins_cam.enabled = false
+
+
+func _on_resume_pressed() -> void:
+	game_ref.camera.emit("player")
+	Engine.time_scale = 1

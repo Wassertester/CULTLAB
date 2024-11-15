@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b76mobpe643tr"]
+[gd_scene load_steps=14 format=3 uid="uid://b76mobpe643tr"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
+[ext_resource type="Script" path="res://szenen/player.gd" id="1_ep80i"]
 [ext_resource type="Texture2D" uid="uid://b84rk1q61ba2" path="res://sprites/charecter/idle1.png" id="1_u5w7p"]
 [ext_resource type="Texture2D" uid="uid://dre5shsjw6xio" path="res://sprites/charecter/idle2.png" id="2_2ngth"]
 [ext_resource type="Texture2D" uid="uid://g48f6fqgfefu" path="res://sprites/charecter/bounce.png" id="2_e4q01"]
@@ -67,7 +68,18 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_q8iw5"]
+script/source = "extends Camera2D
+
+func _on_camera(str) -> void:
+	if str == \"player\":
+		enabled = true
+	else:
+		enabled = false
+"
+
 [node name="player" type="Node2D"]
+script = ExtResource("1_ep80i")
 
 [node name="player_script" type="CharacterBody2D" parent="."]
 position = Vector2(-14424, -130)
@@ -82,10 +94,11 @@ animation = &"idle"
 autoplay = "idle"
 script = ExtResource("6_v7unu")
 
-[node name="Camera2D" type="Camera2D" parent="player_script"]
+[node name="player_cam" type="Camera2D" parent="player_script"]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
+script = SubResource("GDScript_q8iw5")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="player_script"]
 position = Vector2(0, 6)
