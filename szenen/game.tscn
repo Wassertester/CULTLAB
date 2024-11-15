@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://ddp0at5hyj2ps"]
 
-[ext_resource type="Script" path="res://szenen/game.gd" id="1_dsqwm"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_dsqwm"]
 [ext_resource type="Texture2D" uid="uid://drti02ria6on0" path="res://sprites/temporary art/world_tileset.png" id="1_hgroi"]
 [ext_resource type="PackedScene" uid="uid://b76mobpe643tr" path="res://szenen/player.tscn" id="2_i40vh"]
 [ext_resource type="Script" path="res://szenen/area_2d.gd" id="3_04y48"]
@@ -346,15 +346,20 @@ shape = SubResource("CircleShape2D_ek154")
 sprite_frames = SubResource("SpriteFrames_hlnmb")
 autoplay = "default"
 
+[node name="start_island_cam" type="Camera2D" parent="start island"]
+position = Vector2(-14424, -143)
+zoom = Vector2(3, 3)
+
 [node name="Settings" parent="." instance=ExtResource("6_stiwb")]
 offset_left = -13330.0
 offset_top = -3.0
 offset_right = -13330.0
 offset_bottom = -3.0
 
+[connection signal="camera" from="." to="." method="_on_camera"]
 [connection signal="camera" from="." to="player" method="_on_game_camera"]
 [connection signal="camera" from="." to="Settings" method="_on_game_camera"]
-[connection signal="area_entered" from="start island/Area2D2" to="Settings" method="_on_area_2d_2_area_entered"]
+[connection signal="body_shape_entered" from="start island/Area2D2" to="Settings" method="_on_area_2d_2_body_shape_entered"]
 [connection signal="area_entered" from="start island/Area2D" to="start island/Area2D" method="_on_area_entered"]
 [connection signal="body_entered" from="start island/Area2D" to="start island/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="start island/Area2D" to="start island/Area2D" method="_on_body_exited"]
