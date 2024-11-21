@@ -81,7 +81,9 @@ func _on_camera(str) -> void:
 script = ExtResource("1_ep80i")
 
 [node name="player_script" type="CharacterBody2D" parent="."]
+z_index = 3
 position = Vector2(-14424, -130)
+collision_layer = 129
 script = ExtResource("1_dvg5l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_script"]
