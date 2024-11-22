@@ -77,6 +77,10 @@ popup/item_3/id = 3
 layout_mode = 2
 text = "Resume"
 
+[node name="restart" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "restart"
+
 [node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit game"
@@ -92,4 +96,5 @@ script = SubResource("GDScript_0is04")
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Fullscreen_windowed" to="." method="_on_fullscreen_windowed_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

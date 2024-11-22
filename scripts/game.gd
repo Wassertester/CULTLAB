@@ -30,9 +30,10 @@ func _on_checkpoints_checkpoint_reached(Position: Vector2) -> void:
 	respawn_cords = Position
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	camera.emit("player")
 	respawn()
 	
 func respawn():
 	player.position = respawn_cords
 	player.stop()
+	camera.emit("player")
+	print("ups")

@@ -71,3 +71,7 @@ func _on_area_2d_2_body_shape_entered(body_rid: RID, body: Node2D, body_shape_in
 	player_script.stop()
 	player_script.rotation = 0
 	menu_button = true
+
+
+func _on_restart_pressed() -> void:
+	game_ref.respawn()
