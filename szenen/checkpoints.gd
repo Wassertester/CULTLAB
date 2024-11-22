@@ -11,4 +11,4 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_checkpoint_1_body_entered(body: Node2D) -> void:
-	checkpoint_reached.emit(checkpoint_1.position)
+	checkpoint_reached.emit(Vector2 (checkpoint_1.position.x, checkpoint_1.position.y + 50))

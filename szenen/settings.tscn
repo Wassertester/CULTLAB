@@ -79,6 +79,9 @@ text = "Resume"
 
 [node name="restart" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+action_mode = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "restart"
 
 [node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]

@@ -1,6 +1,6 @@
 extends Node2D
 var menu_fragezeichen = false
-@onready var resume: Button = $Settings/MarginContainer/VBoxContainer/resume
+@onready var settings: Control = $Settings
 @onready var start_island_cam: Camera2D = $"start island/start_island_cam"
 @onready var player: Node2D = $player/player_script
 signal camera
@@ -12,15 +12,16 @@ func _input(event: InputEvent) -> void:
 			camera.emit("menu")
 		else:
 			camera.emit("player")
-# pauses game when menu is opened
+# pauses game and hides menu bc sonst kannst du es immernoch mit Pfeiltasten steuern
 func _on_camera(str) -> void:
 	if str == "menu":
 		Engine.time_scale = 0
 		menu_fragezeichen = true
+		settings.visible = true
 	else:
 		Engine.time_scale = 1
 		menu_fragezeichen = false
-		
+		settings.visible = false
 	if str == "start":
 		start_island_cam.enabled = true
 	else:
@@ -32,8 +33,9 @@ func _on_checkpoints_checkpoint_reached(Position: Vector2) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	respawn()
 	
+	
 func respawn():
 	player.position = respawn_cords
 	player.stop()
 	camera.emit("player")
-	print("ups")
+	

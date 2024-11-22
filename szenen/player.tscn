@@ -114,3 +114,19 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 33.0
 initial_velocity_max = 33.0
 color = Color(0.345098, 0.258824, 0, 1)
+
+[node name="RayCastRight" type="RayCast2D" parent="player_script"]
+position = Vector2(0, 1)
+target_position = Vector2(5, -9)
+
+[node name="RayCastLeft" type="RayCast2D" parent="player_script"]
+position = Vector2(0, 1)
+target_position = Vector2(-5, -9)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCastUntenL" type="RayCast2D" parent="player_script"]
+target_position = Vector2(-3, 10)
+
+[node name="RayCastUntenR" type="RayCast2D" parent="player_script"]
+target_position = Vector2(3, 10)
