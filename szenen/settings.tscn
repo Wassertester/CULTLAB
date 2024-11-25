@@ -63,7 +63,7 @@ popup/item_2/id = 2
 
 [node name="Fullscreen_windowed" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-selected = 1
+selected = 2
 item_count = 4
 popup/item_0/text = "Fullscreen"
 popup/item_1/text = "Windowed"
