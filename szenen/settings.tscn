@@ -26,6 +26,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -88,11 +89,22 @@ text = "restart"
 layout_mode = 2
 text = "Quit game"
 
+[node name="erase save" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "erase save"
+
 [node name="settings_cam" type="Camera2D" parent="."]
-position = Vector2(1, 7)
 enabled = false
 zoom = Vector2(3, 3)
 script = SubResource("GDScript_0is04")
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "erase save"
+position = Vector2i(660, 400)
+size = Vector2i(600, 300)
+content_scale_factor = 3.0
+ok_button_text = "KILL IT!"
+dialog_text = "You Shure?"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
@@ -101,3 +113,5 @@ script = SubResource("GDScript_0is04")
 [connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/erase save" to="." method="_on_erase_pressed"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

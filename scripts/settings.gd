@@ -27,12 +27,8 @@ const Window_mode_array : Array[String] = [
 	"Borderless Fullscreen"
 ]
 
-
-
 func _ready():
 	fullscreen_windowed.item_selected.connect(on_window_mode_selected)
-	
-	
 	
 func on_window_mode_selected(index : int) -> void:
 	match index:
@@ -64,14 +60,22 @@ func _on_resume_pressed() -> void:
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_area_2d_2_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	game_ref.camera.emit("menu")
-	player_script.position = Vector2(-14424, -130)
-	player_script.stop()
-	player_script.rotation = 0
-	menu_button = true
-
+	game_ref.start_island()
 
 func _on_restart_pressed() -> void:
 	game_ref.respawn()
+
+# wenn erase butten gedrückt geht pop up auf
+@onready var confirmation: ConfirmationDialog = $ConfirmationDialog
+func _on_erase_pressed() -> void:
+	confirmation.visible = true
+
+# erase save file
+func _on_confirmation_dialog_confirmed() -> void:
+	#print ("Thanos snap")
+	DirAccess.remove_absolute(save_game.SAVE_PATH)
+	game_ref.camera.emit("start")
+	game_ref.save.respawn_cords = save_game.START_POINT
+	game_ref.start_island()

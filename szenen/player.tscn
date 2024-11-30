@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://b0gmg4uuxp06t" path="res://sprites/charecter/idle3.png" id="3_bcp33"]
 [ext_resource type="Texture2D" uid="uid://bbx2t83p4g23r" path="res://sprites/charecter/idle4.png" id="4_pos2t"]
 [ext_resource type="Texture2D" uid="uid://buh6kurc3d3va" path="res://sprites/charecter/jump1.png" id="6_fa7yg"]
-[ext_resource type="Script" path="res://scripts/animated_sprite_2d.gd" id="6_v7unu"]
 [ext_resource type="Texture2D" uid="uid://bmsn6bramgwas" path="res://sprites/charecter/jump2.png" id="7_1relt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obvsr"]
@@ -20,10 +19,10 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_e4q01")
 }, {
-"duration": 999999.0,
+"duration": 1.0,
 "texture": ExtResource("1_u5w7p")
 }],
-"loop": true,
+"loop": false,
 "name": &"bounce",
 "speed": 5.0
 }, {
@@ -40,9 +39,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("4_pos2t")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -51,10 +50,10 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_1relt")
 }, {
-"duration": 999999.0,
+"duration": 1.0,
 "texture": ExtResource("1_u5w7p")
 }],
-"loop": true,
+"loop": false,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -62,10 +61,26 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("1_u5w7p")
 }],
-"loop": true,
+"loop": false,
 "name": &"no_animation",
-"speed": 1.0
+"speed": 5.0
 }]
+
+[sub_resource type="GDScript" id="GDScript_qrjox"]
+script/source = "extends AnimatedSprite2D
+
+
+var crash
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+"
 
 [sub_resource type="GDScript" id="GDScript_q8iw5"]
 script/source = "extends Camera2D
@@ -92,9 +107,9 @@ shape = SubResource("CircleShape2D_obvsr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player_script"]
 sprite_frames = SubResource("SpriteFrames_mdp5k")
-animation = &"idle"
-autoplay = "idle"
-script = ExtResource("6_v7unu")
+animation = &"jump"
+autoplay = "no_animation"
+script = SubResource("GDScript_qrjox")
 
 [node name="player_cam" type="Camera2D" parent="player_script"]
 enabled = false
@@ -103,30 +118,20 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 script = SubResource("GDScript_q8iw5")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="player_script"]
-position = Vector2(0, 6)
-lifetime = 0.3
-local_coords = true
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector2(0, 1)
-gravity = Vector2(0, 0)
-initial_velocity_min = 33.0
-initial_velocity_max = 33.0
-color = Color(0.345098, 0.258824, 0, 1)
+[node name="rays" type="Node2D" parent="player_script"]
 
-[node name="RayCastRight" type="RayCast2D" parent="player_script"]
+[node name="RayCastRight" type="RayCast2D" parent="player_script/rays"]
 position = Vector2(0, 1)
 target_position = Vector2(5, -9)
 
-[node name="RayCastLeft" type="RayCast2D" parent="player_script"]
-position = Vector2(0, 1)
-target_position = Vector2(-5, -9)
-collide_with_areas = true
-collide_with_bodies = false
+[node name="RayCastUntenR" type="RayCast2D" parent="player_script/rays"]
+target_position = Vector2(3, 10)
 
-[node name="RayCastUntenL" type="RayCast2D" parent="player_script"]
+[node name="RayCastUntenL" type="RayCast2D" parent="player_script/rays"]
 target_position = Vector2(-3, 10)
 
-[node name="RayCastUntenR" type="RayCast2D" parent="player_script"]
-target_position = Vector2(3, 10)
+[node name="RayCastLeft" type="RayCast2D" parent="player_script/rays"]
+position = Vector2(0, 1)
+target_position = Vector2(-5, -9)
+
+[node name="Jump_trail" type="Node2D" parent="player_script"]

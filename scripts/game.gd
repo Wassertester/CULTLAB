@@ -4,7 +4,14 @@ var menu_fragezeichen = false
 @onready var start_island_cam: Camera2D = $"start island/start_island_cam"
 @onready var player: Node2D = $player/player_script
 signal camera
-var respawn_cords = Vector2(-800, 2)
+var save: save_game = save_game.new()
+
+func _ready():
+	if ResourceLoader.exists(save_game.SAVE_PATH):
+		save = load(save_game.SAVE_PATH)
+	else:
+		save.respawn_cords = save_game.START_POINT
+	# temporary!!!
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("escape"):
@@ -26,16 +33,19 @@ func _on_camera(str) -> void:
 		start_island_cam.enabled = true
 	else:
 		start_island_cam.enabled = false
-
 func _on_checkpoints_checkpoint_reached(Position: Vector2) -> void:
-	respawn_cords = Position
-
+	save.save(Position)
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	respawn()
 	
-	
 func respawn():
-	player.position = respawn_cords
+	player.position = save.respawn_cords
 	player.stop()
 	camera.emit("player")
 	
+func start_island():
+	player.position = Vector2(-14424, -130)
+	player.stop()
+	player.rotation = 0
+	settings.menu_button = true
