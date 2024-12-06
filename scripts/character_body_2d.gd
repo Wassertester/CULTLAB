@@ -65,7 +65,6 @@ func bounce():
 		animated_sprite.play("bounce")
 	
 func _physics_process(delta: float) -> void:
-	
 	 # auf Boden verlangsamen
 	if is_on_floor() and floor_last_frame:
 		velocity.x *= friction
@@ -78,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	# idle animation only of you stand up
-	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8:
+	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.  is_action_pressed("jump"):
 		timer += delta
 		if timer > 1:
 			animated_sprite.play("idle") 

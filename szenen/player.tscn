@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b76mobpe643tr"]
+[gd_scene load_steps=23 format=3 uid="uid://b76mobpe643tr"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ep80i"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bbx2t83p4g23r" path="res://sprites/charecter/idle4.png" id="4_pos2t"]
 [ext_resource type="Texture2D" uid="uid://buh6kurc3d3va" path="res://sprites/charecter/jump1.png" id="6_fa7yg"]
 [ext_resource type="Texture2D" uid="uid://bmsn6bramgwas" path="res://sprites/charecter/jump2.png" id="7_1relt"]
+[ext_resource type="Script" path="res://scripts/jump_trail.gd" id="10_urmgo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obvsr"]
 radius = 7.0
@@ -92,6 +93,30 @@ func _on_camera(str) -> void:
 		enabled = false
 "
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vre8n"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uvvde"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5mg84"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jh31x"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p12p4"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_owyqp"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c3fka"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sy6e3"]
+load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
+
 [node name="player" type="Node2D"]
 script = ExtResource("1_ep80i")
 
@@ -107,7 +132,7 @@ shape = SubResource("CircleShape2D_obvsr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player_script"]
 sprite_frames = SubResource("SpriteFrames_mdp5k")
-animation = &"jump"
+animation = &"no_animation"
 autoplay = "no_animation"
 script = SubResource("GDScript_qrjox")
 
@@ -135,3 +160,36 @@ position = Vector2(0, 1)
 target_position = Vector2(-5, -9)
 
 [node name="Jump_trail" type="Node2D" parent="player_script"]
+position = Vector2(0, -4)
+script = ExtResource("10_urmgo")
+
+[node name="Sprite2D" type="Sprite2D" parent="player_script/Jump_trail"]
+texture = SubResource("CompressedTexture2D_vre8n")
+
+[node name="Sprite2D2" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -7)
+texture = SubResource("CompressedTexture2D_uvvde")
+
+[node name="Sprite2D3" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -6)
+texture = SubResource("CompressedTexture2D_5mg84")
+
+[node name="Sprite2D4" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -5)
+texture = SubResource("CompressedTexture2D_jh31x")
+
+[node name="Sprite2D5" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -4)
+texture = SubResource("CompressedTexture2D_p12p4")
+
+[node name="Sprite2D6" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -3)
+texture = SubResource("CompressedTexture2D_owyqp")
+
+[node name="Sprite2D7" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -2)
+texture = SubResource("CompressedTexture2D_c3fka")
+
+[node name="Sprite2D8" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(0, -1)
+texture = SubResource("CompressedTexture2D_sy6e3")
