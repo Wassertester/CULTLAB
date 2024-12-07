@@ -1,24 +1,63 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlbfxy7vngjju"]
+[gd_scene load_steps=9 format=3 uid="uid://dlbfxy7vngjju"]
 
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_cqbhy"]
 [ext_resource type="Texture2D" uid="uid://cvybsjclk8xyk" path="res://sprites/checkpoint no flag.png" id="2_x4s02"]
 [ext_resource type="Texture2D" uid="uid://diswfgdyix4s3" path="res://sprites/flag from checkpoint.png" id="3_ivosj"]
+[ext_resource type="Texture2D" uid="uid://4wmajljc8i38" path="res://sprites/checkpoint no animation.png" id="4_fo4es"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vfso"]
 size = Vector2(64, 112)
+
+[sub_resource type="Animation" id="Animation_l17sa"]
+resource_name = "get checkpoint"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flag:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 16), Vector2(0, -32)]
+}
+
+[sub_resource type="Animation" id="Animation_kg561"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flag:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r7j26"]
+_data = {
+"RESET": SubResource("Animation_kg561"),
+"get checkpoint": SubResource("Animation_l17sa")
+}
 
 [node name="checkpoint" type="Area2D"]
 collision_mask = 128
 script = ExtResource("1_cqbhy")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_x4s02")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_3vfso")
 
+[node name="flagpost" type="Sprite2D" parent="."]
+texture = ExtResource("2_x4s02")
+
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 6
 position = Vector2(0, 64)
 emitting = false
 amount = 99
@@ -37,10 +76,22 @@ damping_min = 22.0
 damping_max = 25.0
 color = Color(0.898039, 0.721569, 0.0431373, 1)
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(0, 17)
+[node name="flag" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
 texture = ExtResource("3_ivosj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r7j26")
+}
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_fo4es")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4.76837e-07, 0.500004)
+scale = Vector2(5, 6.35)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

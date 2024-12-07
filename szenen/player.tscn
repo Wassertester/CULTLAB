@@ -164,32 +164,33 @@ position = Vector2(0, -4)
 script = ExtResource("10_urmgo")
 
 [node name="Sprite2D" type="Sprite2D" parent="player_script/Jump_trail"]
+position = Vector2(-0.5, -4.5)
 texture = SubResource("CompressedTexture2D_vre8n")
 
 [node name="Sprite2D2" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -7)
+position = Vector2(1.5, -8.5)
 texture = SubResource("CompressedTexture2D_uvvde")
 
 [node name="Sprite2D3" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -6)
+position = Vector2(-0.5, -8.5)
 texture = SubResource("CompressedTexture2D_5mg84")
 
 [node name="Sprite2D4" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -5)
+position = Vector2(0.5, -8.5)
 texture = SubResource("CompressedTexture2D_jh31x")
 
 [node name="Sprite2D5" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -4)
+position = Vector2(-0.5, -7.5)
 texture = SubResource("CompressedTexture2D_p12p4")
 
 [node name="Sprite2D6" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -3)
+position = Vector2(-0.5, -6.5)
 texture = SubResource("CompressedTexture2D_owyqp")
 
 [node name="Sprite2D7" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -2)
+position = Vector2(0.5, -6.5)
 texture = SubResource("CompressedTexture2D_c3fka")
 
 [node name="Sprite2D8" type="Sprite2D" parent="player_script/Jump_trail"]
-position = Vector2(0, -1)
+position = Vector2(-0.5, -5.5)
 texture = SubResource("CompressedTexture2D_sy6e3")
