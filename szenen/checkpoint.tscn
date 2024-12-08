@@ -8,6 +8,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vfso"]
 size = Vector2(64, 112)
 
+[sub_resource type="Animation" id="Animation_kg561"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flag:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 16)]
+}
+
 [sub_resource type="Animation" id="Animation_l17sa"]
 resource_name = "get checkpoint"
 length = 2.0
@@ -24,21 +39,6 @@ tracks/0/keys = {
 "values": [Vector2(0, 16), Vector2(0, -32)]
 }
 
-[sub_resource type="Animation" id="Animation_kg561"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("flag:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 16)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r7j26"]
 _data = {
 "RESET": SubResource("Animation_kg561"),
@@ -50,6 +50,7 @@ collision_mask = 128
 script = ExtResource("1_cqbhy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_3vfso")
 
@@ -90,8 +91,8 @@ visible = false
 texture = ExtResource("4_fo4es")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-4.76837e-07, 0.500004)
-scale = Vector2(5, 6.35)
+position = Vector2(-4.76837e-07, 1)
+scale = Vector2(5, 6.3)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

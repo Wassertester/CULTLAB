@@ -7,6 +7,7 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if game.save.respawn_cords != global_position + Vector2(0, 50):
+		game.save.save(global_position + Vector2(0, 50))
 		animation_player.play("get checkpoint")
 		cpu_particles_2d.emitting = true
 
