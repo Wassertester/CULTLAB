@@ -21,6 +21,7 @@ var switch_x
 var velocity_bounce
 var timer = 0.0
 var jump_held = 1
+var switched_rotation
 
 # velocity reset 
 func stop():
@@ -97,8 +98,13 @@ func _physics_process(delta: float) -> void:
 	elif option_button.selected == 0:
 		look_at(get_global_mouse_position())
 		rotation_degrees = rotation_degrees + 90
-	
-	if ray_cast_2d_left.is_colliding() or ray_cast_2d_right.is_colliding():
+	if is_on_floor() and velocity_last_frame > 88 and (rotation <= -2.1 or rotation >= 2.1):
+		bounce()
+		
+	if is_on_wall() and rotation < 3.1 and rotation >0.5:
+		bounce()
+			
+	if is_on_wall() and rotation > -3.1 and rotation < -0.5:
 		bounce()
 	# call jump funktion when button released
 	if Input.is_action_just_released("jump"):
