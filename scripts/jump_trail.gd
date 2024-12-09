@@ -8,7 +8,6 @@ extends Node2D
 @onready var particles_7: Sprite2D = $Sprite2D7
 @onready var particles_8: Sprite2D = $Sprite2D8
 @onready var player: CharacterBody2D = $".."
-var particles = [$CPUParticles2D, $CPUParticles2D2, $CPUParticles2D3, $CPUParticles2D4, $CPUParticles2D5, $CPUParticles2D6, $CPUParticles2D7, $CPUParticles2D8]
 const TIME_MULTY = 0.02
 var velocity_x
 var velocity_y

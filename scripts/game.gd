@@ -11,7 +11,6 @@ func _ready():
 		save = load(save_game.SAVE_PATH)
 	else:
 		save.respawn_cords = save_game.START_POINT
-	# temporary!!!
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("escape"):
@@ -20,8 +19,8 @@ func _input(event: InputEvent) -> void:
 		else:
 			camera.emit("player")
 # pauses game and hides menu bc sonst kannst du es immernoch mit Pfeiltasten steuern
-func _on_camera(str) -> void:
-	if str == "menu":
+func _on_camera(camera) -> void:
+	if camera == "menu":
 		Engine.time_scale = 0
 		menu_fragezeichen = true
 		settings.visible = true
@@ -29,13 +28,11 @@ func _on_camera(str) -> void:
 		Engine.time_scale = 1
 		menu_fragezeichen = false
 		settings.visible = false
-	if str == "start":
+	if camera == "start":
 		start_island_cam.enabled = true
 	else:
 		start_island_cam.enabled = false
-func _on_checkpoints_checkpoint_reached(Position: Vector2) -> void:
-	save.save(Position)
-	
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	respawn()
 	
