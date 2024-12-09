@@ -34,7 +34,11 @@ func set_position_ (n, t):
 		particles_8.global_position = n
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("jump") and player.is_on_floor() and (player.ray_cast_untenl.is_colliding() or player.ray_cast_unten_r.is_colliding()):
+	if Input.is_action_pressed("jump"):
+		if player.is_on_floor() and (player.ray_cast_untenl.is_colliding() or player.ray_cast_unten_r.is_colliding()):
+			modulate = Color(1, 1, 1, 1)
+		else:
+			modulate = Color(1, 1, 1, 0.4)
 		visible = true
 		
 		velocity_x = player.SPEED * player.jump_held * sin(player.rotation)
@@ -48,6 +52,7 @@ func _process(delta: float) -> void:
 		timer = 1
 		position_ = Vector2(0, 0)
 		
+	
 	else:
 		visible = false
 	
