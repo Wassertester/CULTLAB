@@ -93,18 +93,22 @@ text = "Quit game"
 layout_mode = 2
 text = "erase save"
 
-[node name="settings_cam" type="Camera2D" parent="."]
-enabled = false
-zoom = Vector2(3, 3)
-script = SubResource("GDScript_0is04")
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/CenterContainer"]
 title = "erase save"
 position = Vector2i(660, 400)
 size = Vector2i(600, 300)
 content_scale_factor = 3.0
 ok_button_text = "KILL IT!"
 dialog_text = "You Shure?"
+
+[node name="settings_cam" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(3, 3)
+script = SubResource("GDScript_0is04")
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
@@ -114,4 +118,4 @@ dialog_text = "You Shure?"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/erase save" to="." method="_on_erase_pressed"]
-[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="confirmed" from="MarginContainer/CenterContainer/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

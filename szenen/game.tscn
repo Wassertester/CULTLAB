@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d2cctqgycn1u0" path="res://sprites/icons/play icon animation.png" id="5_jgfs2"]
 [ext_resource type="PackedScene" uid="uid://b3lcmqisiyf8l" path="res://szenen/settings.tscn" id="6_stiwb"]
 [ext_resource type="PackedScene" uid="uid://dlbfxy7vngjju" path="res://szenen/checkpoint.tscn" id="8_d2cvk"]
-[ext_resource type="Script" path="res://scripts/checkpoints.gd" id="8_q2jbw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hou0o"]
 texture = ExtResource("1_hgroi")
@@ -314,6 +313,16 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_l2nyj"]
+script/source = "extends Node2D
+@onready var checkpoint_1: Area2D = $checkpoint1
+signal checkpoint_reached(Position: Vector2)
+
+func _on_checkpoint_1_body_entered(body: Node2D) -> void:
+	pass
+	#checkpoint_reached.emit(Vector2 (checkpoint_1.position.x, checkpoint_1.position.y + 50))
+"
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dsqwm")
 
@@ -359,10 +368,13 @@ offset_right = -13330.0
 offset_bottom = -3.0
 
 [node name="checkpoints" type="Node2D" parent="."]
-script = ExtResource("8_q2jbw")
+script = SubResource("GDScript_l2nyj")
 
 [node name="checkpoint1" parent="checkpoints" instance=ExtResource("8_d2cvk")]
-position = Vector2(-432, -32)
+position = Vector2(-891, -32)
+
+[node name="checkpoint" parent="checkpoints" instance=ExtResource("8_d2cvk")]
+position = Vector2(15, -64)
 
 [connection signal="camera" from="." to="." method="_on_camera"]
 [connection signal="camera" from="." to="player" method="_on_game_camera"]

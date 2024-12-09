@@ -68,7 +68,7 @@ func _on_restart_pressed() -> void:
 	game_ref.respawn()
 
 # wenn erase butten gedrückt geht pop up auf
-@onready var confirmation: ConfirmationDialog = $ConfirmationDialog
+@onready var confirmation: ConfirmationDialog = $MarginContainer/CenterContainer/ConfirmationDialog
 func _on_erase_pressed() -> void:
 	confirmation.visible = true
 
