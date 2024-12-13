@@ -1,6 +1,4 @@
 extends CharacterBody2D
-@onready var ray_cast_2d_left: RayCast2D = $"rays/RayCastLeft"
-@onready var ray_cast_2d_right: RayCast2D = $"rays/RayCastRight"
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast_untenl: RayCast2D = $rays/RayCastUntenL
 @onready var ray_cast_unten_r: RayCast2D = $rays/RayCastUntenR
@@ -128,7 +126,6 @@ func _physics_process(delta: float) -> void:
 		if ray_cast_right.is_colliding():
 			velocity.x -= 4
 		
-	
 	velocity_last_frame = velocity.y
 	velocity_last_frame_x = velocity.x
 		

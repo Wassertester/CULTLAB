@@ -79,3 +79,12 @@ func _on_confirmation_dialog_confirmed() -> void:
 	game_ref.camera.emit("start")
 	game_ref.save.respawn_cords = save_game.START_POINT
 	game_ref.start_island()
+
+# pop up für easy mode
+@onready var easy_mode_confirmation: ConfirmationDialog = $MarginContainer/CenterContainer/easy_mode_confirmation
+@onready var check_button: CheckButton = $MarginContainer/VBoxContainer/CheckButton
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on == true:
+		easy_mode_confirmation.visible = true
+	elif toggled_on == false:
+		check_button.button_pressed = true

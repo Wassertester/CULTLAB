@@ -11,6 +11,9 @@ func _ready():
 		save = load(save_game.SAVE_PATH)
 	else:
 		save.respawn_cords = save_game.START_POINT
+		save.easy_mode = false
+		# für wenn es zu kompliziert ist den defold per hand zu setzen
+		#load(res://new_save)
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("escape"):

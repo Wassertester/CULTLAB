@@ -52,6 +52,10 @@ popup/item_0/text = "Controll mode: Mouse"
 popup/item_1/text = "Controll mode: Keyboard"
 popup/item_1/id = 1
 
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "easy mode (for infants and Arne)"
+
 [node name="Resolution" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 selected = 0
@@ -105,13 +109,23 @@ content_scale_factor = 3.0
 ok_button_text = "KILL IT!"
 dialog_text = "You Shure?"
 
+[node name="easy_mode_confirmation" type="ConfirmationDialog" parent="MarginContainer/CenterContainer"]
+auto_translate_mode = 1
+title = "its to hard for me!!!"
+position = Vector2i(660, 400)
+size = Vector2i(600, 300)
+content_scale_factor = 2.4
+ok_button_text = "I suck"
+dialog_text = "You can't disable easy mode"
+
 [node name="settings_cam" type="Camera2D" parent="."]
 enabled = false
-zoom = Vector2(3, 3)
+zoom = Vector2(2.5, 2.5)
 script = SubResource("GDScript_0is04")
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Fullscreen_windowed" to="." method="_on_fullscreen_windowed_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
