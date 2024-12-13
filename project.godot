@@ -13,7 +13,7 @@ config_version=5
 config/name="Kultlab 24/25"
 run/main_scene="res://szenen/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://sprites/icon.svg"
+config/icon="res://sprites/temporary art/icon.svg"
 
 [display]
 

@@ -145,19 +145,11 @@ script = SubResource("GDScript_q8iw5")
 
 [node name="rays" type="Node2D" parent="player_script"]
 
-[node name="RayCastRight" type="RayCast2D" parent="player_script/rays"]
-position = Vector2(0, 1)
-target_position = Vector2(5, -9)
-
 [node name="RayCastUntenR" type="RayCast2D" parent="player_script/rays"]
 target_position = Vector2(3, 10)
 
 [node name="RayCastUntenL" type="RayCast2D" parent="player_script/rays"]
 target_position = Vector2(-3, 10)
-
-[node name="RayCastLeft" type="RayCast2D" parent="player_script/rays"]
-position = Vector2(0, 1)
-target_position = Vector2(-5, -9)
 
 [node name="Jump_trail" type="Node2D" parent="player_script"]
 position = Vector2(0, -4)
