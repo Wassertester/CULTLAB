@@ -1,8 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://ddp0at5hyj2ps"]
+[gd_scene load_steps=32 format=3 uid="uid://ddp0at5hyj2ps"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_dsqwm"]
 [ext_resource type="Texture2D" uid="uid://drti02ria6on0" path="res://sprites/temporary art/world_tileset.png" id="1_hgroi"]
 [ext_resource type="PackedScene" uid="uid://b76mobpe643tr" path="res://szenen/player.tscn" id="2_i40vh"]
+[ext_resource type="Script" path="res://scripts/notizen.gd" id="2_nor7y"]
 [ext_resource type="Texture2D" uid="uid://c07affkrlid3p" path="res://sprites/icons/settings icon.png" id="4_lshol"]
 [ext_resource type="Texture2D" uid="uid://d2cctqgycn1u0" path="res://sprites/icons/play icon animation.png" id="5_jgfs2"]
 [ext_resource type="PackedScene" uid="uid://b3lcmqisiyf8l" path="res://szenen/settings.tscn" id="6_stiwb"]
@@ -325,6 +326,9 @@ func _on_checkpoint_1_body_entered(body: Node2D) -> void:
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dsqwm")
+
+[node name="notizen" type="Node" parent="."]
+script = ExtResource("2_nor7y")
 
 [node name="teil map" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_sf2ki")

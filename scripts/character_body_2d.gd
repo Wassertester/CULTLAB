@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var ray_cast_untenl: RayCast2D = $rays/RayCastUntenL
 @onready var ray_cast_unten_r: RayCast2D = $rays/RayCastUntenR
 @onready var option_button: OptionButton = $"../../Settings/MarginContainer/VBoxContainer/OptionButton"
+@onready var ray_cast_left: RayCast2D = $"../RayCastLeft"
+@onready var ray_cast_right: RayCast2D = $"../RayCastRight"
 const move_rot = 0.00016
 const SPEED = 250.0
 const JUMP_VELOCITY = -250.0
@@ -116,6 +118,16 @@ func _physics_process(delta: float) -> void:
 			jump_held += delta
 	else:
 		jump_held = 1.0
+	
+	# player von Wand weg pushen, weil du sonst hart stuck bist
+	if is_on_floor():
+		ray_cast_left.position = position
+		if ray_cast_left.is_colliding():
+			velocity.x += 4
+		ray_cast_right.position = position
+		if ray_cast_right.is_colliding():
+			velocity.x -= 4
+		
 	
 	velocity_last_frame = velocity.y
 	velocity_last_frame_x = velocity.x

@@ -194,3 +194,11 @@ texture = SubResource("CompressedTexture2D_c3fka")
 modulate = Color(1, 1, 1, 0.529412)
 position = Vector2(-0.5, -5.5)
 texture = SubResource("CompressedTexture2D_sy6e3")
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(-14424, -129)
+target_position = Vector2(-9, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(-14424, -129)
+target_position = Vector2(9, 0)
