@@ -105,6 +105,5 @@ func _on_easy_mode_confirmation_confirmed() -> void:
 	Game.save.easy_mode = true
 	Game.save.save()
 
-
 func _on_easy_mode_confirmation_canceled() -> void:
 	check_button.button_pressed = false
