@@ -5,6 +5,5 @@ const START_POINT = Vector2(-800, 2)
 @export var respawn_cords: Vector2 
 @export var easy_mode: bool
 
-func save(cords):
-	respawn_cords = cords
+func save():
 	ResourceSaver.save(self, SAVE_PATH)

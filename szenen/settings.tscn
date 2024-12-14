@@ -133,3 +133,5 @@ script = SubResource("GDScript_0is04")
 [connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/erase save" to="." method="_on_erase_pressed"]
 [connection signal="confirmed" from="MarginContainer/CenterContainer/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="canceled" from="MarginContainer/CenterContainer/easy_mode_confirmation" to="." method="_on_easy_mode_confirmation_canceled"]
+[connection signal="confirmed" from="MarginContainer/CenterContainer/easy_mode_confirmation" to="." method="_on_easy_mode_confirmation_confirmed"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_cqbhy"]
 [ext_resource type="Texture2D" uid="uid://cvybsjclk8xyk" path="res://sprites/checkpoint no flag.png" id="2_x4s02"]
-[ext_resource type="Texture2D" uid="uid://diswfgdyix4s3" path="res://sprites/flag from checkpoint.png" id="3_ivosj"]
+[ext_resource type="Texture2D" uid="uid://uxih5f47mar3" path="res://sprites/Sprite-0001.png" id="3_dbmm4"]
 [ext_resource type="Texture2D" uid="uid://4wmajljc8i38" path="res://sprites/checkpoint no animation.png" id="4_fo4es"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vfso"]
@@ -79,7 +79,7 @@ color = Color(0.898039, 0.721569, 0.0431373, 1)
 
 [node name="flag" type="Sprite2D" parent="."]
 position = Vector2(0, 16)
-texture = ExtResource("3_ivosj")
+texture = ExtResource("3_dbmm4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

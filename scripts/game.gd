@@ -12,7 +12,7 @@ func _ready():
 	else:
 		save.respawn_cords = save_game.START_POINT
 		save.easy_mode = false
-		# für wenn es zu kompliziert ist den defold per hand zu setzen
+		# für wenn es zu kompliziert ist den defold per hand zu setzen:
 		#load(res://new_save)
 
 func _input(event: InputEvent) -> void:
@@ -43,9 +43,10 @@ func respawn():
 	player.position = save.respawn_cords
 	player.stop()
 	camera.emit("player")
+	settings.on_start_island = false
 	
 func start_island():
 	player.position = Vector2(-14424, -130)
 	player.stop()
 	player.rotation = 0
-	settings.menu_button = true
+	settings.on_start_island = true
