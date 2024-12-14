@@ -46,7 +46,6 @@ func on_window_mode_selected(index : int) -> void:
 var dont_schow_confirmation = false
 func _on_game_camera(str) -> void:
 	if str == "menu":
-		print(Game.save.easy_mode)
 		# setting easy mode toggel to right position
 		dont_schow_confirmation = true
 		check_button.disabled = false
