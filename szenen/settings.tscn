@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3lcmqisiyf8l"]
+[gd_scene load_steps=4 format=3 uid="uid://b3lcmqisiyf8l"]
 
 [ext_resource type="Script" path="res://scripts/settings.gd" id="1_4faad"]
+[ext_resource type="FontFile" uid="uid://dfll48yc2x5gg" path="res://fonts/PixelOperator8.ttf" id="2_ast8s"]
 
 [sub_resource type="GDScript" id="GDScript_0is04"]
 script/source = "extends Camera2D
@@ -35,6 +36,8 @@ layout_mode = 2
 
 [node name="Volume label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
 text = "Volume"
 
 [node name="Volume" type="HSlider" parent="MarginContainer/VBoxContainer"]
@@ -42,22 +45,24 @@ layout_mode = 2
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
 text = "Mute"
 
 [node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
 selected = 0
 item_count = 2
 popup/item_0/text = "Controll mode: Mouse"
 popup/item_1/text = "Controll mode: Keyboard"
 popup/item_1/id = 1
 
-[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "easy mode (for infants and Arne)"
-
 [node name="Resolution" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
 selected = 0
 item_count = 3
 popup/item_0/text = "1920 x 1080"
@@ -68,6 +73,8 @@ popup/item_2/id = 2
 
 [node name="Fullscreen_windowed" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
 selected = 2
 item_count = 4
 popup/item_0/text = "Fullscreen"
@@ -78,60 +85,56 @@ popup/item_2/id = 2
 popup/item_3/text = "Fullscreen Borderless"
 popup/item_3/id = 3
 
-[node name="resume" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Resume"
-
 [node name="restart" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
 action_mode = 0
 shortcut_feedback = false
 shortcut_in_tooltip = false
-text = "restart"
-
-[node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Quit game"
+text = "Reset"
 
 [node name="erase save" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "erase save"
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
+text = "Erase save"
+
+[node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
+text = "Quit game"
+
+[node name="resume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ast8s")
+theme_override_font_sizes/font_size = 8
+text = "Continue"
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 visible = false
 layout_mode = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/CenterContainer"]
-title = "erase save"
+title = "Erase save"
 position = Vector2i(660, 400)
 size = Vector2i(600, 300)
 content_scale_factor = 3.0
 ok_button_text = "KILL IT!"
 dialog_text = "You Shure?"
 
-[node name="easy_mode_confirmation" type="ConfirmationDialog" parent="MarginContainer/CenterContainer"]
-auto_translate_mode = 1
-title = "its to hard for me!!!"
-position = Vector2i(660, 400)
-size = Vector2i(600, 300)
-content_scale_factor = 2.4
-ok_button_text = "I suck"
-dialog_text = "You can't disable easy mode"
-
 [node name="settings_cam" type="Camera2D" parent="."]
 enabled = false
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(3, 3)
 script = SubResource("GDScript_0is04")
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Fullscreen_windowed" to="." method="_on_fullscreen_windowed_item_selected"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/erase save" to="." method="_on_erase_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 [connection signal="confirmed" from="MarginContainer/CenterContainer/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
-[connection signal="canceled" from="MarginContainer/CenterContainer/easy_mode_confirmation" to="." method="_on_easy_mode_confirmation_canceled"]
-[connection signal="confirmed" from="MarginContainer/CenterContainer/easy_mode_confirmation" to="." method="_on_easy_mode_confirmation_confirmed"]

@@ -23,7 +23,7 @@ var timer = 0.0
 var jump_held = 1
 var switched_rotation
 
-# velocity reset 
+
 func stop():
 	velocity.x = 0
 	velocity.y = 0
@@ -49,7 +49,7 @@ func bounce():
 		#animated_sprite.play("no_animation")
 		animated_sprite.play("bounce")
 		
-	elif is_on_ceiling() and (velocity_last_frame < -66 or velocity_last_frame > 66):
+	if is_on_ceiling() and (velocity_last_frame < -66 or velocity_last_frame > 66):
 		velocity.y = -velocity_last_frame * make_positive(cos(rotation)) * head_bounce_multiplier
 		velocity.x += velocity_last_frame * sin(rotation) * head_bounce_multiplier
 		#animated_sprite.play("no_animation")
@@ -78,7 +78,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	# idle animation only of you stand up
-	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.is_action_pressed("jump"):
+	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.  is_action_pressed("jump"):
 		timer += delta
 		if timer > 1:
 			animated_sprite.play("idle") 
@@ -97,12 +97,11 @@ func _physics_process(delta: float) -> void:
 	elif option_button.selected == 0:
 		look_at(get_global_mouse_position())
 		rotation_degrees = rotation_degrees + 90
-		
-	if is_on_floor() and rotation <= -2.1 or rotation >= 2.1:
+	if is_on_floor() and rotation <= -2.1 or rotation >= 2.1 and velocity_last_frame > 88:
 		bounce()
-	elif is_on_wall() and rotation < 3.1 and rotation >0.5:
+	elif is_on_wall() and not velocity.x < 66 and rotation < 3.1 and rotation >0.5:
 		bounce()
-	elif is_on_wall() and rotation > -3.1 and rotation < -0.5:
+	elif is_on_wall() and not velocity.x < -66 and rotation > -3.1 and rotation < -0.5:
 		bounce()
 	elif is_on_ceiling() and rotation < 1 and rotation > -1:
 		bounce()
@@ -117,8 +116,7 @@ func _physics_process(delta: float) -> void:
 			jump_held += delta
 	else:
 		jump_held = 1.0
-	
-	# player von Wand weg pushen, weil du sonst hart stuck bist
+
 	if is_on_floor():
 		ray_cast_left.position = position
 		if ray_cast_left.is_colliding():
@@ -127,6 +125,7 @@ func _physics_process(delta: float) -> void:
 		if ray_cast_right.is_colliding():
 			velocity.x -= 4
 		
+	
 	velocity_last_frame = velocity.y
 	velocity_last_frame_x = velocity.x
 		
