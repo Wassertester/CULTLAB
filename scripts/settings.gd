@@ -1,7 +1,6 @@
 extends Control
 @onready var settins_cam: Camera2D = $settings_cam
 @onready var player_script: CharacterBody2D = $"../player/player_script"
-@onready var game_ref: Node2D = $".."
 @onready var fullscreen_windowed: OptionButton = $MarginContainer/VBoxContainer/Fullscreen_windowed
 var menu_button = false
 
@@ -53,19 +52,19 @@ func _on_game_camera(str) -> void:
 
 func _on_resume_pressed() -> void:
 	if menu_button == true:
-		game_ref.camera.emit("start")
+		Game.camera.emit("start")
 	else:
-		game_ref.camera.emit("player")
+		Game.camera.emit("player")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_area_2d_2_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	game_ref.camera.emit("menu")
-	game_ref.start_island()
+	Game.camera.emit("menu")
+	Game.start_island()
 
 func _on_restart_pressed() -> void:
-	game_ref.respawn()
+	Game.respawn()
 
 # wenn erase butten gedrückt geht pop up auf
 @onready var confirmation: ConfirmationDialog = $MarginContainer/CenterContainer/ConfirmationDialog
@@ -73,9 +72,10 @@ func _on_erase_pressed() -> void:
 	confirmation.visible = true
 
 # erase save file
+@onready var game: Node2D = $".."
 func _on_confirmation_dialog_confirmed() -> void:
 	#print ("Thanos snap")
 	DirAccess.remove_absolute(save_game.SAVE_PATH)
-	game_ref.camera.emit("start")
-	game_ref.save.respawn_cords = save_game.START_POINT
-	game_ref.start_island()
+	game.camera.emit("start")
+	game.save.respawn_cords = save_game.START_POINT
+	game.start_island()

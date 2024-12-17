@@ -1,6 +1,5 @@
 extends Area2D
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
-@onready var checkpoints: Node2D = $"."
 @onready var flag: Sprite2D = $flag
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 

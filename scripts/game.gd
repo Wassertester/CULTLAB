@@ -1,3 +1,4 @@
+# wenn als global gecalled, kann man keine conections zu anderen noten benutzen
 extends Node2D
 var menu_fragezeichen = false
 @onready var settings: Control = $Settings
@@ -11,6 +12,7 @@ func _ready():
 		save = load(save_game.SAVE_PATH)
 	else:
 		save.respawn_cords = save_game.START_POINT
+	#player.position = player.position
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("escape"):
@@ -46,3 +48,6 @@ func start_island():
 	player.stop()
 	player.rotation = 0
 	settings.menu_button = true
+	
+func player_position():
+	return player.position
