@@ -7,14 +7,13 @@ extends Node2D
 @onready var notifier_oben: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D3
 @export var flip: bool
 @export var proximity_trigger: bool
-@export var contens: String
+@export_multiline var contens: String
 var started: bool 
 var displayed_text: String
 var counter: int = 0
 var message: int = 0
 var ready_ = 0
 var end_of_message: bool = false
-
 
 func _ready() -> void:
 	sprite.flip_h = flip
@@ -41,17 +40,20 @@ func next_message():
 	label.text = ""
 	if counter == 0:
 		timer.start()
-	if counter < contens.length() -1:
-		while contens[counter] != "§" and counter < contens.length() -1:
-			counter += 1
-		counter += 1
 		end_of_message = false
+		if contens[counter] == "§":
+			counter += 1
 	else:
-		timer.stop()
-		counter -= 1
-		label.visible = false
-		sprite.visible = false
-
+		if counter < contens.length() -1:
+			while contens[counter] != "§" and counter < contens.length() -1:
+				counter += 1
+			counter += 1
+			end_of_message = false
+		else:
+			timer.stop()
+			counter -= 1
+			label.visible = false
+			sprite.visible = false
 
 func start():
 	if not started:

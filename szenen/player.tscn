@@ -131,6 +131,7 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_obvsr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player_script"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_mdp5k")
 animation = &"no_animation"
 autoplay = "no_animation"

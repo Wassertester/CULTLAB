@@ -343,7 +343,7 @@ position = Vector2(-14296, -136)
 shape = SubResource("CircleShape2D_b4whd")
 
 [node name="settings icon" type="AnimatedSprite2D" parent="start island/Area2D2"]
-z_index = 5
+z_index = 3
 sprite_frames = SubResource("SpriteFrames_h30mf")
 autoplay = "default"
 
@@ -354,7 +354,7 @@ position = Vector2(-14552, -136)
 shape = SubResource("CircleShape2D_ek154")
 
 [node name="play icon" type="AnimatedSprite2D" parent="start island/Area2D"]
-z_index = 5
+z_index = 3
 sprite_frames = SubResource("SpriteFrames_hlnmb")
 autoplay = "default"
 
@@ -363,9 +363,9 @@ position = Vector2(-14424, -143)
 zoom = Vector2(3, 3)
 
 [node name="text_bubble" parent="start island" instance=ExtResource("6_ik8qb")]
-position = Vector2(-14527, -190)
+position = Vector2(-682, -43)
 proximity_trigger = true
-contens = "mankind is dead.§blood is fuel.§hellis full.§."
+contens = "§mankind is dead.§blood is fuel.§hellis full.§."
 
 [node name="Settings" parent="." instance=ExtResource("6_stiwb")]
 offset_left = -13330.0
