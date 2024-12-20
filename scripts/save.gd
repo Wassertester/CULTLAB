@@ -4,6 +4,7 @@ const SAVE_PATH = "user://save.tres"
 const START_POINT = Vector2(-800, 2)
 @export var respawn_cords: Vector2 
 @export var easy_mode: bool
+@export var restart: bool
 
 func save():
 	ResourceSaver.save(self, SAVE_PATH)

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var option_button: OptionButton = $"../../Settings/MarginContainer/VBoxContainer/OptionButton"
 @onready var ray_cast_left: RayCast2D = $"../RayCastLeft"
 @onready var ray_cast_right: RayCast2D = $"../RayCastRight"
+
 const move_rot = 0.00016
 const SPEED = 250.0
 const JUMP_VELOCITY = -250.0
@@ -12,6 +13,7 @@ const rotation_multiplier = 0.02
 const head_bounce_multiplier = 0.8
 const friction = 0.8667
 const max_jump_multiplier = 1.8
+
 var rotation_speed = 0.0
 var velocity_last_frame
 var floor_last_frame
@@ -19,10 +21,10 @@ var velocity_last_frame_x = 0
 var switch_y
 var switch_x
 var velocity_bounce
-var timer = 0.0
 var jump_held = 1
 var switched_rotation
 
+var health: int = 3
 
 func stop():
 	velocity.x = 0
@@ -78,12 +80,13 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	# idle animation only of you stand up
+	var idle_timer = 0.0
 	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.  is_action_pressed("jump"):
-		timer += delta
-		if timer > 1:
+		idle_timer += delta
+		if idle_timer > 1:
 			animated_sprite.play("idle") 
 	elif animated_sprite.animation == "idle":
-		timer = 0
+		idle_timer = 0
 		animated_sprite.stop()
 	
 	# rotation
@@ -130,3 +133,24 @@ func _physics_process(delta: float) -> void:
 	velocity_last_frame_x = velocity.x
 		
 	move_and_slide()
+
+func _process(delta: float) -> void:
+	pass
+	
+@onready var damage_detector: Area2D = $"../damage_detector"
+@onready var timer: Timer = $"../damage_detector/Timer"
+
+func _on_damage_detector_area_entered(area: Area2D) -> void:
+	take_damage(1)
+	
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		timer.start()
+		Engine.time_scale = 0.3
+			
+@onready var game: Node2D = $"."
+func _on_timer_timeout() -> void:
+	Engine.time_scale = 1
+	game.respawn()
+	

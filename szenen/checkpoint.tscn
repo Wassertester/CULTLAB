@@ -45,10 +45,11 @@ _data = {
 }
 
 [node name="checkpoint" type="Area2D"]
+collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_cqbhy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="checkpoint_collider" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_3vfso")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b76mobpe643tr"]
+[gd_scene load_steps=24 format=3 uid="uid://b76mobpe643tr"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ep80i"]
@@ -117,6 +117,9 @@ load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a92
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sy6e3"]
 load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xjjx"]
+radius = 6.0
+
 [node name="player" type="Node2D"]
 script = ExtResource("1_ep80i")
 
@@ -203,3 +206,19 @@ target_position = Vector2(-9, 0)
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(-14424, -129)
 target_position = Vector2(9, 0)
+
+[node name="damage_detector" type="Area2D" parent="."]
+position = Vector2(-14000, 0)
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_detector"]
+position = Vector2(-424, -129)
+shape = SubResource("CircleShape2D_0xjjx")
+
+[node name="Timer" type="Timer" parent="damage_detector"]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="area_entered" from="damage_detector" to="player_script" method="_on_damage_detector_area_entered"]
+[connection signal="timeout" from="damage_detector/Timer" to="player_script" method="_on_timer_timeout"]
