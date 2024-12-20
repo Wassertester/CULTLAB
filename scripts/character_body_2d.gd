@@ -25,6 +25,7 @@ var jump_held = 1
 var switched_rotation
 
 var health: int = 3
+var do_rotation = true
 
 func stop():
 	velocity.x = 0
@@ -97,7 +98,7 @@ func _physics_process(delta: float) -> void:
 			rotation_speed += rotation_multiplier
 		rotation_speed *= 0.8
 		rotation += rotation_speed + (velocity.x * move_rot)
-	elif option_button.selected == 0:
+	elif option_button.selected == 0 and do_rotation:
 		look_at(get_global_mouse_position())
 		rotation_degrees = rotation_degrees + 90
 	if is_on_floor() and rotation <= -2.1 or rotation >= 2.1 and velocity_last_frame > 88:

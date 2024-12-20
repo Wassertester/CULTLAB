@@ -11,7 +11,7 @@ func _ready():
 	if ResourceLoader.exists(save_game.SAVE_PATH):
 		save_state = load(save_game.SAVE_PATH)
 		if save_state.restart == true:
-			respawn()
+			go_to_checkpoint()
 		save_state.restart = false
 	else:
 		save_state.respawn_cords = save_game.START_POINT
@@ -41,13 +41,17 @@ func _on_camera(camera) -> void:
 		start_island_cam.enabled = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	respawn()
+	go_to_checkpoint()
 	
 func respawn():
+	save_state.restart = true
+	get_tree().reload_current_scene()
+
+func go_to_checkpoint():
 	player.position = save_state.respawn_cords
 	player.stop()
 	camera.emit("player")
-	
+
 func start_island():
 	player.position = Vector2(-14424, -130)
 	player.stop()
