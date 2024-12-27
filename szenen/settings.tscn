@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3lcmqisiyf8l"]
+[gd_scene load_steps=5 format=3 uid="uid://b3lcmqisiyf8l"]
 
 [ext_resource type="Script" path="res://scripts/settings.gd" id="1_4faad"]
 [ext_resource type="FontFile" uid="uid://dfll48yc2x5gg" path="res://fonts/PixelOperator8.ttf" id="2_ast8s"]
+[ext_resource type="Script" path="res://scripts/settings_saver.gd" id="3_bydhh"]
 
 [sub_resource type="GDScript" id="GDScript_0is04"]
 script/source = "extends Camera2D
@@ -131,8 +132,13 @@ enabled = false
 zoom = Vector2(3, 3)
 script = SubResource("GDScript_0is04")
 
+[node name="settings_saver" type="Node" parent="."]
+script = ExtResource("3_bydhh")
+
+[connection signal="setting_changed" from="." to="settings_saver" method="_on_settings_setting_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButton" to="." method="_on_control_mode_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/Fullscreen_windowed" to="." method="_on_fullscreen_windowed_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]

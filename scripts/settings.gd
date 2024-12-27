@@ -4,14 +4,18 @@ extends Control
 @onready var fullscreen_windowed: OptionButton = $MarginContainer/VBoxContainer/Fullscreen_windowed
 @onready var game: Node2D = $".."
 var menu_button = false
+signal setting_changed
 
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(0,value)
+	setting_changed.emit()
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	AudioServer.set_bus_mute(0,toggled_on)
+	setting_changed.emit()
 
 func _on_resolution_item_selected(index: int) -> void:
+	setting_changed.emit()
 	match index:
 		0:
 			DisplayServer.window_set_size(Vector2i(1920,1080))
@@ -31,6 +35,7 @@ func _ready():
 	fullscreen_windowed.item_selected.connect(on_window_mode_selected)
 	
 func on_window_mode_selected(index : int) -> void:
+	setting_changed.emit()
 	match index:
 		0: #Fullscreen
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -79,3 +84,6 @@ func _on_confirmation_dialog_confirmed() -> void:
 	game.camera.emit("start")
 	game.save.respawn_cords = save_game.START_POINT
 	game.start_island()
+
+func _on_control_mode_item_selected(index: int) -> void:
+	setting_changed.emit()
