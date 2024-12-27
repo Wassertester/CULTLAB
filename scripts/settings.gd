@@ -2,6 +2,7 @@ extends Control
 @onready var settins_cam: Camera2D = $settings_cam
 @onready var player_script: CharacterBody2D = $"../player/player_script"
 @onready var fullscreen_windowed: OptionButton = $MarginContainer/VBoxContainer/Fullscreen_windowed
+@onready var game: Node2D = $".."
 var menu_button = false
 
 func _on_volume_value_changed(value: float) -> void:
@@ -52,9 +53,9 @@ func _on_game_camera(str) -> void:
 
 func _on_resume_pressed() -> void:
 	if menu_button == true:
-		Game.camera.emit("start")
+		game.camera.emit("start")
 	else:
-		Game.camera.emit("player")
+		game.camera.emit("player")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
@@ -72,7 +73,6 @@ func _on_erase_pressed() -> void:
 	confirmation.visible = true
 
 # erase save file
-@onready var game: Node2D = $".."
 func _on_confirmation_dialog_confirmed() -> void:
 	#print ("Thanos snap")
 	DirAccess.remove_absolute(save_game.SAVE_PATH)

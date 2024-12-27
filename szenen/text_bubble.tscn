@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://07l2fwmadplw" path="res://sprites/text_bubble.png" id="1_bn1ev"]
 
 [node name="text_bubble" type="Node2D"]
-modulate = Color(1, 1, 1, 0.913725)
-z_index = 1
+modulate = Color(1, 1, 1, 0.827451)
+z_index = -1
 script = ExtResource("1_a7t4n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ddp0at5hyj2ps"]
+[gd_scene load_steps=32 format=3 uid="uid://ddp0at5hyj2ps"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_dsqwm"]
 [ext_resource type="Texture2D" uid="uid://drti02ria6on0" path="res://sprites/temporary art/world_tileset.png" id="1_hgroi"]
@@ -314,6 +314,16 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_l2nyj"]
+script/source = "extends Node2D
+@onready var checkpoint_1: Area2D = $checkpoint1
+signal checkpoint_reached(Position: Vector2)
+
+func _on_checkpoint_1_body_entered(body: Node2D) -> void:
+	pass
+	#checkpoint_reached.emit(Vector2 (checkpoint_1.position.x, checkpoint_1.position.y + 50))
+"
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dsqwm")
 
@@ -333,7 +343,7 @@ position = Vector2(-14296, -136)
 shape = SubResource("CircleShape2D_b4whd")
 
 [node name="settings icon" type="AnimatedSprite2D" parent="start island/Area2D2"]
-z_index = 4
+z_index = 3
 sprite_frames = SubResource("SpriteFrames_h30mf")
 autoplay = "default"
 
@@ -344,7 +354,7 @@ position = Vector2(-14552, -136)
 shape = SubResource("CircleShape2D_ek154")
 
 [node name="play icon" type="AnimatedSprite2D" parent="start island/Area2D"]
-z_index = 4
+z_index = 3
 sprite_frames = SubResource("SpriteFrames_hlnmb")
 autoplay = "default"
 
@@ -364,6 +374,7 @@ offset_right = -13330.0
 offset_bottom = -3.0
 
 [node name="checkpoints" type="Node2D" parent="."]
+script = SubResource("GDScript_l2nyj")
 
 [node name="checkpoint" parent="checkpoints" instance=ExtResource("8_d2cvk")]
 position = Vector2(15, -64)
@@ -382,3 +393,4 @@ position = Vector2(-1984, 64)
 [connection signal="camera" from="." to="Settings" method="_on_game_camera"]
 [connection signal="body_shape_entered" from="start island/Area2D2" to="Settings" method="_on_area_2d_2_body_shape_entered"]
 [connection signal="body_entered" from="start island/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="checkpoint_reached" from="checkpoints" to="." method="_on_checkpoints_checkpoint_reached"]

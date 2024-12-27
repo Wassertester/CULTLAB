@@ -7,7 +7,6 @@ func _on_game_camera(camera) -> void:
 		player_cam.enabled = true
 	else:
 		player_cam.enabled = false
-		print("gsfzj")
 	if camera == "menu":
 		player.do_rotation = false
 	else:
