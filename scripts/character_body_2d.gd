@@ -15,9 +15,9 @@ const friction = 0.8667
 const max_jump_multiplier = 1.8
 
 var rotation_speed = 0.0
-var velocity_last_frame
+var velocity_last_frame = 0.0
 var floor_last_frame
-var velocity_last_frame_x = 0
+var velocity_last_frame_x = 0.0
 var switch_y
 var switch_x
 var velocity_bounce

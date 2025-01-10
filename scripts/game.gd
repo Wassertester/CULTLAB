@@ -12,7 +12,7 @@ func _ready():
 		save_state = load(save_game.SAVE_PATH)
 		if save_state.restart == true:
 			go_to_checkpoint()
-		save_state.restart = false
+			save_state.restart = false
 	else:
 		save_state.respawn_cords = save_game.START_POINT
 	#player.position = player.position
@@ -45,6 +45,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 func respawn():
 	save_state.restart = true
+	save()
 	get_tree().reload_current_scene()
 
 func go_to_checkpoint():

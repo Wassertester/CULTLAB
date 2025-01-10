@@ -82,7 +82,7 @@ func _on_confirmation_dialog_confirmed() -> void:
 	#print ("Thanos snap")
 	DirAccess.remove_absolute(save_game.SAVE_PATH)
 	game.camera.emit("start")
-	game.save.respawn_cords = save_game.START_POINT
+	game.save_state.respawn_cords = save_game.START_POINT
 	game.start_island()
 
 func _on_control_mode_item_selected(index: int) -> void:
