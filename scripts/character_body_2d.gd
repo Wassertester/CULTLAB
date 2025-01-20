@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var ray_cast_untenl: RayCast2D = $rays/RayCastUntenL
-@onready var ray_cast_unten_r: RayCast2D = $rays/RayCastUntenR
+@onready var ray_cast_untenl: RayCast2D = $RayCastUntenL
+@onready var ray_cast_unten_r: RayCast2D = $RayCastUntenR
 @onready var option_button: OptionButton = $"../../Settings/MarginContainer/VBoxContainer/OptionButton"
 @onready var ray_cast_left: RayCast2D = $"../RayCastLeft"
 @onready var ray_cast_right: RayCast2D = $"../RayCastRight"
@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	# idle animation only of you stand up
 	var idle_timer = 0.0
-	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.  is_action_pressed("jump"):
+	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.is_action_pressed("jump"):
 		idle_timer += delta
 		if idle_timer > 1:
 			animated_sprite.play("idle") 
@@ -144,13 +144,16 @@ func _process(delta: float) -> void:
 func _on_damage_detector_area_entered(area: Area2D) -> void:
 	take_damage(1)
 	
+signal update_HUD
 func take_damage(amount):
 	health -= amount
 	if health <= 0:
+		health = 0
 		timer.start()
 		Engine.time_scale = 0.3
+	update_HUD.emit(health)
 			
-@onready var game: Node2D = $"."
+@onready var game: Node2D = $"../.."
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1
 	game.respawn()
