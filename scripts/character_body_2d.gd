@@ -134,23 +134,20 @@ func _physics_process(delta: float) -> void:
 	velocity_last_frame_x = velocity.x
 		
 	move_and_slide()
-
-func _process(delta: float) -> void:
-	pass
 	
-@onready var damage_detector: Area2D = $"../damage_detector"
-@onready var timer: Timer = $"../damage_detector/Timer"
-
-func _on_damage_detector_area_entered(area: Area2D) -> void:
-	take_damage(1)
-	
+@onready var death_timer: Timer = $"../health_system/death_Timer"
+@onready var imunity_timer: Timer = $"../health_system/imunity_timer"
+var imunity_frame = false
 signal update_HUD
 func take_damage(amount):
+	if imunity_frame:
+		return
 	health -= amount
+	imunity_frame = true
+	imunity_timer.start()
 	if health <= 0:
-		health = 0
-		timer.start()
-		Engine.time_scale = 0.3
+		death_timer.start()
+		Engine.time_scale = 0.2
 	update_HUD.emit(health)
 			
 @onready var game: Node2D = $"../.."
@@ -158,3 +155,8 @@ func _on_timer_timeout() -> void:
 	Engine.time_scale = 1
 	game.respawn()
 	
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	take_damage(1)
+
+func _on_imunity_timer_timeout() -> void:
+	imunity_frame = false

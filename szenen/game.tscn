@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ddp0at5hyj2ps"]
+[gd_scene load_steps=33 format=3 uid="uid://ddp0at5hyj2ps"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_dsqwm"]
 [ext_resource type="Texture2D" uid="uid://drti02ria6on0" path="res://sprites/temporary art/world_tileset.png" id="1_hgroi"]
@@ -324,6 +324,9 @@ func _on_checkpoint_1_body_entered(body: Node2D) -> void:
 	#checkpoint_reached.emit(Vector2 (checkpoint_1.position.x, checkpoint_1.position.y + 50))
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6tl1"]
+size = Vector2(121, 34)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dsqwm")
 
@@ -387,6 +390,19 @@ position = Vector2(401, -271)
 
 [node name="checkpoint4" parent="checkpoints" instance=ExtResource("8_d2cvk")]
 position = Vector2(-1984, 64)
+
+[node name="statik_damage_areas" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="statik_damage_areas"]
+position = Vector2(-1340.5, 32)
+shape = SubResource("RectangleShape2D_v6tl1")
+
+[node name="text_bubble" parent="statik_damage_areas" instance=ExtResource("6_ik8qb")]
+position = Vector2(-1344, 32)
+proximity_trigger = true
+contens = "this is a deadly spike.§trust me bro, it is.§look, if you jump into tthis...§...you will take damage"
 
 [connection signal="camera" from="." to="." method="_on_camera"]
 [connection signal="camera" from="." to="player" method="_on_game_camera"]
