@@ -24,7 +24,6 @@ var velocity_bounce
 var jump_held = 1
 var switched_rotation
 
-var health: int = 3
 var do_rotation = true
 
 func stop():
@@ -135,6 +134,8 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	
+const max_health = 3
+var health: int = max_health
 @onready var death_timer: Timer = $"../health_system/death_Timer"
 @onready var imunity_timer: Timer = $"../health_system/imunity_timer"
 var imunity_frame = false
@@ -148,7 +149,7 @@ func take_damage(amount):
 	if health <= 0:
 		death_timer.start()
 		Engine.time_scale = 0.2
-	update_HUD.emit(health)
+	update_HUD.emit(health, 1.0)
 			
 @onready var game: Node2D = $"../.."
 func _on_timer_timeout() -> void:
@@ -160,3 +161,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func _on_imunity_timer_timeout() -> void:
 	imunity_frame = false
+func heal():
+	if health == max_health:
+		return
+	health = max_health
+	update_HUD.emit(max_health, 0.2)
