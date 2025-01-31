@@ -15,10 +15,6 @@ run/main_scene="res://szenen/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://sprites/temporary art/icon.svg"
 
-[autoload]
-
-Game="*res://scripts/game.gd"
-
 [display]
 
 window/size/viewport_width=1920

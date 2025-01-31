@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b76mobpe643tr"]
+[gd_scene load_steps=26 format=3 uid="uid://b76mobpe643tr"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ep80i"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://buh6kurc3d3va" path="res://sprites/charecter/jump1.png" id="6_fa7yg"]
 [ext_resource type="Texture2D" uid="uid://bmsn6bramgwas" path="res://sprites/charecter/jump2.png" id="7_1relt"]
 [ext_resource type="Script" path="res://scripts/jump_trail.gd" id="10_urmgo"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="11_8wdj2"]
+[ext_resource type="Texture2D" uid="uid://cj1qmpqagtse7" path="res://sprites/heart/heard 00.png" id="11_o7ce1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obvsr"]
 radius = 7.0
@@ -147,14 +149,6 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 script = SubResource("GDScript_q8iw5")
 
-[node name="rays" type="Node2D" parent="player_script"]
-
-[node name="RayCastUntenR" type="RayCast2D" parent="player_script/rays"]
-target_position = Vector2(3, 10)
-
-[node name="RayCastUntenL" type="RayCast2D" parent="player_script/rays"]
-target_position = Vector2(-3, 10)
-
 [node name="Jump_trail" type="Node2D" parent="player_script"]
 position = Vector2(0, -4)
 script = ExtResource("10_urmgo")
@@ -199,26 +193,63 @@ modulate = Color(1, 1, 1, 0.529412)
 position = Vector2(-0.5, -5.5)
 texture = SubResource("CompressedTexture2D_sy6e3")
 
-[node name="RayCastLeft" type="RayCast2D" parent="."]
-position = Vector2(-14424, -129)
-target_position = Vector2(-9, 0)
+[node name="RayCastUntenR" type="RayCast2D" parent="player_script"]
+target_position = Vector2(3, 10)
+
+[node name="RayCastUntenL" type="RayCast2D" parent="player_script"]
+target_position = Vector2(-3, 10)
+
+[node name="Area2D" type="Area2D" parent="player_script"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="damage_area" type="CollisionShape2D" parent="player_script/Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_0xjjx")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(-14424, -129)
 target_position = Vector2(9, 0)
 
-[node name="damage_detector" type="Area2D" parent="."]
-position = Vector2(-14000, 0)
-collision_layer = 0
-collision_mask = 64
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(-14424, -129)
+target_position = Vector2(-9, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_detector"]
-position = Vector2(-424, -129)
-shape = SubResource("CircleShape2D_0xjjx")
+[node name="health_system" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="damage_detector"]
-wait_time = 0.1
+[node name="death_Timer" type="Timer" parent="health_system"]
+wait_time = 0.2
 one_shot = true
 
-[connection signal="area_entered" from="damage_detector" to="player_script" method="_on_damage_detector_area_entered"]
-[connection signal="timeout" from="damage_detector/Timer" to="player_script" method="_on_timer_timeout"]
+[node name="HUD" type="CanvasLayer" parent="health_system"]
+script = ExtResource("11_8wdj2")
+
+[node name="Control" type="Control" parent="health_system/HUD"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="health_system/HUD/Control"]
+position = Vector2(128, -80)
+scale = Vector2(6, 6)
+texture = ExtResource("11_o7ce1")
+
+[node name="heart" type="Sprite2D" parent="health_system"]
+z_index = 5
+position = Vector2(960, 320)
+scale = Vector2(8, 8)
+texture = ExtResource("11_o7ce1")
+
+[node name="imunity_timer" type="Timer" parent="health_system"]
+one_shot = true
+
+[connection signal="update_HUD" from="player_script" to="health_system/HUD" method="_on_player_script_update_hud"]
+[connection signal="area_entered" from="player_script/Area2D" to="player_script" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="health_system/death_Timer" to="player_script" method="_on_timer_timeout"]
+[connection signal="timeout" from="health_system/imunity_timer" to="player_script" method="_on_imunity_timer_timeout"]

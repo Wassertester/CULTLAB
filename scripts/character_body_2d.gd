@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var ray_cast_untenl: RayCast2D = $rays/RayCastUntenL
-@onready var ray_cast_unten_r: RayCast2D = $rays/RayCastUntenR
+@onready var ray_cast_untenl: RayCast2D = $RayCastUntenL
+@onready var ray_cast_unten_r: RayCast2D = $RayCastUntenR
 @onready var option_button: OptionButton = $"../../Settings/MarginContainer/VBoxContainer/OptionButton"
 @onready var ray_cast_left: RayCast2D = $"../RayCastLeft"
 @onready var ray_cast_right: RayCast2D = $"../RayCastRight"
@@ -15,9 +15,9 @@ const friction = 0.8667
 const max_jump_multiplier = 1.8
 
 var rotation_speed = 0.0
-var velocity_last_frame
+var velocity_last_frame = 0.0
 var floor_last_frame
-var velocity_last_frame_x = 0
+var velocity_last_frame_x = 0.0
 var switch_y
 var switch_x
 var velocity_bounce
@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	# idle animation only of you stand up
 	var idle_timer = 0.0
-	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.  is_action_pressed("jump"):
+	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.is_action_pressed("jump"):
 		idle_timer += delta
 		if idle_timer > 1:
 			animated_sprite.play("idle") 
@@ -134,24 +134,29 @@ func _physics_process(delta: float) -> void:
 	velocity_last_frame_x = velocity.x
 		
 	move_and_slide()
-
-func _process(delta: float) -> void:
-	pass
 	
-@onready var damage_detector: Area2D = $"../damage_detector"
-@onready var timer: Timer = $"../damage_detector/Timer"
-
-func _on_damage_detector_area_entered(area: Area2D) -> void:
-	take_damage(1)
-	
+@onready var death_timer: Timer = $"../health_system/death_Timer"
+@onready var imunity_timer: Timer = $"../health_system/imunity_timer"
+var imunity_frame = false
+signal update_HUD
 func take_damage(amount):
+	if imunity_frame:
+		return
 	health -= amount
+	imunity_frame = true
+	imunity_timer.start()
 	if health <= 0:
-		timer.start()
-		Engine.time_scale = 0.3
+		death_timer.start()
+		Engine.time_scale = 0.2
+	update_HUD.emit(health)
 			
-@onready var game: Node2D = $"."
+@onready var game: Node2D = $"../.."
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1
 	game.respawn()
 	
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	take_damage(1)
+
+func _on_imunity_timer_timeout() -> void:
+	imunity_frame = false

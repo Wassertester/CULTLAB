@@ -3,7 +3,7 @@ extends Node2D
 var menu_fragezeichen = false
 @onready var settings: Control = $Settings
 @onready var start_island_cam: Camera2D = $"start island/start_island_cam"
-@onready var player: Node2D = $player/player_script
+@onready var player: CharacterBody2D = $player/player_script
 signal camera
 var save_state: save_game = save_game.new()
 
@@ -11,8 +11,8 @@ func _ready():
 	if ResourceLoader.exists(save_game.SAVE_PATH):
 		save_state = load(save_game.SAVE_PATH)
 		if save_state.restart == true:
+			save_state.restart = false
 			go_to_checkpoint()
-		save_state.restart = false
 	else:
 		save_state.respawn_cords = save_game.START_POINT
 	#player.position = player.position
@@ -45,6 +45,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 func respawn():
 	save_state.restart = true
+	save()
 	get_tree().reload_current_scene()
 
 func go_to_checkpoint():
