@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://ddp0at5hyj2ps"]
+[gd_scene load_steps=35 format=3 uid="uid://ddp0at5hyj2ps"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_dsqwm"]
 [ext_resource type="Texture2D" uid="uid://drti02ria6on0" path="res://sprites/temporary art/world_tileset.png" id="1_hgroi"]
 [ext_resource type="PackedScene" uid="uid://b76mobpe643tr" path="res://szenen/player.tscn" id="2_i40vh"]
+[ext_resource type="Texture2D" uid="uid://cn5f2jmvpjk73" path="res://sprites arne/Sprites/TilemapV1.png" id="3_fbp5e"]
 [ext_resource type="Texture2D" uid="uid://c07affkrlid3p" path="res://sprites/icons/settings icon.png" id="4_lshol"]
 [ext_resource type="Texture2D" uid="uid://d2cctqgycn1u0" path="res://sprites/icons/play icon animation.png" id="5_jgfs2"]
 [ext_resource type="PackedScene" uid="uid://cvmyv51i5k57t" path="res://szenen/text_bubble.tscn" id="6_ik8qb"]
@@ -176,9 +177,49 @@ texture = ExtResource("1_hgroi")
 2:15/0 = 0
 3:15/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_elu8t"]
+texture = ExtResource("3_fbp5e")
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+4:3/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+5:3/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+6:4/0 = 0
+7:3/0 = 0
+7:4/0 = 0
+7:2/0 = 0
+7:5/0 = 0
+6:5/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+4:5/0 = 0
+3:5/0 = 0
+2:5/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+7:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+4:7/0 = 0
+3:7/0 = 0
+2:7/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_sf2ki"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_hou0o")
+sources/2 = SubResource("TileSetAtlasSource_elu8t")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b4whd"]
 radius = 19.0
