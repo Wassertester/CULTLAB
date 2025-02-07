@@ -7,12 +7,13 @@ extends CharacterBody2D
 @onready var ray_cast_right: RayCast2D = $"../RayCastRight"
 
 const move_rot = 0.00016
-const SPEED = 250.0
-const JUMP_VELOCITY = -250.0
+const SPEED = 200.0
+const JUMP_VELOCITY = -200.0
 const rotation_multiplier = 0.02
 const head_bounce_multiplier = 0.8
 const friction = 0.8667
 const max_jump_multiplier = 1.8
+enum {floor, wall, ceiling}
 
 var rotation_speed = 0.0
 var velocity_last_frame = 0.0
@@ -25,6 +26,7 @@ var jump_held = 1
 var switched_rotation
 
 var do_rotation = true
+var super_bounce: bool = true
 
 func stop():
 	velocity.x = 0
@@ -32,7 +34,7 @@ func stop():
 	velocity_last_frame = 0
 	velocity_last_frame_x = 0
 
-func jump(rotation, strenth):
+func jump(strenth):
 	#animated_sprite.play("no_animation")
 	velocity.x = SPEED * strenth * sin(rotation)
 	velocity.y = JUMP_VELOCITY * strenth * cos(rotation) 
@@ -42,40 +44,42 @@ func make_positive(n):
 		return n * -1
 	else:
 		return n
-
-func bounce():
+func super_bounce_calc(vel):
+	if not super_bounce:
+		return vel
+	elif vel > 0.0:
+		return 44 * log(vel + 1) + vel
+	else:
+		vel = -vel
+		return -44 * log(vel + 1) - vel
+# qwegrihldrjhiöjotgbmglksaewijrgihöoeföoi !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+func bounce(collision):
 	var positive_rotation
-	if is_on_floor() and (velocity_last_frame < -66 or velocity_last_frame > 66):
-		velocity.y = -velocity_last_frame * make_positive(cos(rotation)) * head_bounce_multiplier
-		velocity.x -= velocity_last_frame * sin(rotation) * head_bounce_multiplier
-		#animated_sprite.play("no_animation")
-		animated_sprite.play("bounce")
+	if collision == floor:
+		velocity.y = -super_bounce_calc(velocity_last_frame) * make_positive(cos(rotation)) * head_bounce_multiplier
+		velocity.x -= super_bounce_calc(velocity_last_frame) * sin(rotation) * head_bounce_multiplier
 		
-	if is_on_ceiling() and (velocity_last_frame < -66 or velocity_last_frame > 66):
-		velocity.y = -velocity_last_frame * make_positive(cos(rotation)) * head_bounce_multiplier
-		velocity.x += velocity_last_frame * sin(rotation) * head_bounce_multiplier
-		#animated_sprite.play("no_animation")
-		animated_sprite.play("bounce")
+	elif collision == ceiling:
+		velocity.y = -super_bounce_calc(velocity_last_frame) * make_positive(cos(rotation)) * head_bounce_multiplier
+		velocity.x += super_bounce_calc(velocity_last_frame) * sin(rotation) * head_bounce_multiplier
 		
-	elif is_on_wall() and (velocity_last_frame_x < -66 or velocity_last_frame_x > 66):
+	elif collision == wall:
 		if rotation < 0:
 			positive_rotation = rotation + PI
 		else:
 			positive_rotation = rotation
-		velocity.y += velocity_last_frame_x * cos(positive_rotation) * head_bounce_multiplier
-		velocity.x = -velocity_last_frame_x * sin(positive_rotation) * head_bounce_multiplier
-		#animated_sprite.play("no_animation")
-		animated_sprite.play("bounce")
+		velocity.y += super_bounce_calc(velocity_last_frame_x) * cos(positive_rotation) * head_bounce_multiplier
+		velocity.x = -super_bounce_calc(velocity_last_frame_x) * sin(positive_rotation) * head_bounce_multiplier
+	animated_sprite.play("bounce")
+	super_bounce = false
 	
 func _physics_process(delta: float) -> void:
-	 # auf Boden verlangsamen
+	# auf Boden verlangsamen
+	# erst nach einem frame verlangsamen wegen Hut jump
 	if is_on_floor() and floor_last_frame:
 		velocity.x *= friction
-	#erst nach einem frame verlangsamen wegen Hut jump
-	if is_on_floor():
-		floor_last_frame = true
-	else:
-		floor_last_frame = false
+	
+	
 	# Add the gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -100,19 +104,21 @@ func _physics_process(delta: float) -> void:
 	elif option_button.selected == 0 and do_rotation:
 		look_at(get_global_mouse_position())
 		rotation_degrees = rotation_degrees + 90
-	if is_on_floor() and rotation <= -2.1 or rotation >= 2.1 and velocity_last_frame > 88:
-		bounce()
-	elif is_on_wall() and not velocity.x < 66 and rotation < 3.1 and rotation >0.5:
-		bounce()
-	elif is_on_wall() and not velocity.x < -66 and rotation > -3.1 and rotation < -0.5:
-		bounce()
-	elif is_on_ceiling() and rotation < 1 and rotation > -1:
-		bounce()
+	
+	if is_on_floor() and floor_last_frame:
+		super_bounce = true
+		
+	if is_on_floor() and (velocity_last_frame < -77 or velocity_last_frame > 77) and (rotation <= -2.1 or rotation >= 2.1):
+		bounce(floor)
+	elif is_on_wall() and ((velocity_last_frame_x > 77 and rotation < 3.1 and rotation >0.5) or (velocity_last_frame_x < -77 and rotation > -3.1 and rotation < -0.5)):
+		bounce(wall)
+	elif is_on_ceiling() and (velocity_last_frame < -77 or velocity_last_frame > 77) and rotation < 1 and rotation > -1:
+		bounce(ceiling)
 	# call jump funktion when button released
 	if Input.is_action_just_released("jump"):
 		animated_sprite.play("jump")
 		if is_on_floor() and (ray_cast_untenl.is_colliding() or ray_cast_unten_r.is_colliding()):
-			jump(rotation, jump_held)
+			jump(jump_held)
 	# charge jump
 	if Input.is_action_pressed("jump"):
 		if not jump_held > max_jump_multiplier and is_on_floor():
@@ -131,6 +137,11 @@ func _physics_process(delta: float) -> void:
 	
 	velocity_last_frame = velocity.y
 	velocity_last_frame_x = velocity.x
+		
+	if is_on_floor():
+		floor_last_frame = true
+	else:
+		floor_last_frame = false
 		
 	move_and_slide()
 	
