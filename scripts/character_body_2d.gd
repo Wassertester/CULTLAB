@@ -24,9 +24,11 @@ var switch_x
 var velocity_bounce
 var jump_held = 1
 var switched_rotation
+var superness: int = 0
 
 var do_rotation = true
-var super_bounce: bool = true
+var super_bounce: bool = false
+var you_can_su_bounce: bool = true
 
 func stop():
 	velocity.x = 0
@@ -44,15 +46,15 @@ func make_positive(n):
 		return n * -1
 	else:
 		return n
+		
 func super_bounce_calc(vel):
 	if not super_bounce:
 		return vel
 	elif vel > 0.0:
-		return 44 * log(vel + 1) + vel
+		return superness * log(vel + 1) + vel
 	else:
-		vel = -vel
-		return -44 * log(vel + 1) - vel
-# qwegrihldrjhiöjotgbmglksaewijrgihöoeföoi !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		return -superness * log(-vel + 1) + vel
+
 func bounce(collision):
 	var positive_rotation
 	if collision == floor:
@@ -105,8 +107,19 @@ func _physics_process(delta: float) -> void:
 		look_at(get_global_mouse_position())
 		rotation_degrees = rotation_degrees + 90
 	
-	if is_on_floor() and floor_last_frame:
+	# super bounce handling
+	if superness > 8:
+		superness -= 1
+	else:
+		super_bounce = false
+	
+	if Input.is_action_just_pressed("super_bounce") and you_can_su_bounce:
 		super_bounce = true
+		you_can_su_bounce = false
+		superness = 50
+		
+	if is_on_floor() and floor_last_frame:
+		you_can_su_bounce = true
 		
 	if is_on_floor() and (velocity_last_frame < -77 or velocity_last_frame > 77) and (rotation <= -2.1 or rotation >= 2.1):
 		bounce(floor)
@@ -114,6 +127,7 @@ func _physics_process(delta: float) -> void:
 		bounce(wall)
 	elif is_on_ceiling() and (velocity_last_frame < -77 or velocity_last_frame > 77) and rotation < 1 and rotation > -1:
 		bounce(ceiling)
+		
 	# call jump funktion when button released
 	if Input.is_action_just_released("jump"):
 		animated_sprite.play("jump")
@@ -126,6 +140,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		jump_held = 1.0
 
+	# pushing you away from wall
 	if is_on_floor():
 		ray_cast_left.position = position
 		if ray_cast_left.is_colliding():
@@ -145,6 +160,7 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	
+# health / damage system
 const max_health = 3
 var health: int = max_health
 @onready var death_timer: Timer = $"../health_system/death_Timer"
