@@ -29,6 +29,7 @@ var superness: int = 0
 var do_rotation = true
 var super_bounce: bool = false
 var you_can_su_bounce: bool = true
+var velocety_after_bounce: Vector2 = Vector2(0, 0)
 
 func stop():
 	velocity.x = 0
@@ -72,8 +73,11 @@ func bounce(collision):
 			positive_rotation = rotation
 		velocity.y += super_bounce_calc(velocity_last_frame_x) * cos(positive_rotation) * head_bounce_multiplier
 		velocity.x = -super_bounce_calc(velocity_last_frame_x) * sin(positive_rotation) * head_bounce_multiplier
+	
 	animated_sprite.play("bounce")
 	super_bounce = false
+	velocety_after_bounce = velocity
+	superness = 40
 	
 func _physics_process(delta: float) -> void:
 	# auf Boden verlangsamen
@@ -109,14 +113,23 @@ func _physics_process(delta: float) -> void:
 	
 	# super bounce handling
 	if superness > 8:
-		superness -= 1
+		superness -= 2
 	else:
 		super_bounce = false
 	
 	if Input.is_action_just_pressed("super_bounce") and you_can_su_bounce:
 		super_bounce = true
 		you_can_su_bounce = false
-		superness = 50
+		if superness > 33:
+			if velocety_after_bounce.x > 0.0:
+				velocity.x += superness * log(velocety_after_bounce.x + 1)
+			else:
+				velocity.x += -superness * log(-velocety_after_bounce.x + 1)
+			if velocety_after_bounce.y > 0.0:
+				velocity.y += superness * log(velocety_after_bounce.y + 1)
+			else:
+				velocity.y += -superness * log(-velocety_after_bounce.y + 1)
+		superness = 40
 		
 	if is_on_floor() and floor_last_frame:
 		you_can_su_bounce = true
@@ -127,7 +140,7 @@ func _physics_process(delta: float) -> void:
 		bounce(wall)
 	elif is_on_ceiling() and (velocity_last_frame < -77 or velocity_last_frame > 77) and rotation < 1 and rotation > -1:
 		bounce(ceiling)
-		
+	
 	# call jump funktion when button released
 	if Input.is_action_just_released("jump"):
 		animated_sprite.play("jump")
