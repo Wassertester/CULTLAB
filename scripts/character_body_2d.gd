@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var option_button: OptionButton = $"../../Settings/MarginContainer/VBoxContainer/OptionButton"
 @onready var ray_cast_left: RayCast2D = $"../RayCastLeft"
 @onready var ray_cast_right: RayCast2D = $"../RayCastRight"
+@onready var super_bounce_particles: CPUParticles2D = $"../super_bounce_particles"
 
 const move_rot = 0.00016
 const SPEED = 200.0
@@ -55,7 +56,11 @@ func super_bounce_calc(vel):
 		return superness * log(vel + 1) + vel
 	else:
 		return -superness * log(-vel + 1) + vel
-
+func super_bounce_particles_():
+		super_bounce_particles.position = position + Vector2(-sin(rotation), cos(rotation))
+		super_bounce_particles.direction = Vector2(-sin(rotation), cos(rotation))
+		super_bounce_particles.emitting =  true
+		
 func bounce(collision):
 	var positive_rotation
 	if collision == floor:
@@ -74,6 +79,9 @@ func bounce(collision):
 		velocity.y += super_bounce_calc(velocity_last_frame_x) * cos(positive_rotation) * head_bounce_multiplier
 		velocity.x = -super_bounce_calc(velocity_last_frame_x) * sin(positive_rotation) * head_bounce_multiplier
 	
+	if super_bounce:
+		super_bounce_particles_()
+		
 	animated_sprite.play("bounce")
 	super_bounce = false
 	velocety_after_bounce = velocity
@@ -129,6 +137,7 @@ func _physics_process(delta: float) -> void:
 				velocity.y += superness * log(velocety_after_bounce.y + 1)
 			else:
 				velocity.y += -superness * log(-velocety_after_bounce.y + 1)
+			super_bounce_particles_()
 		superness = 40
 		
 	if is_on_floor() and floor_last_frame:
