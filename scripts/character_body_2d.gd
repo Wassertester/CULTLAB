@@ -25,8 +25,9 @@ var switch_x
 var velocity_bounce
 var jump_held = 1
 var switched_rotation
-var superness: int = 0
+var idle_timer = 0.0
 
+var superness: int = 0
 var do_rotation = true
 var super_bounce: bool = false
 var you_can_su_bounce: bool = true
@@ -57,10 +58,15 @@ func super_bounce_calc(vel):
 	else:
 		return -superness * log(-vel + 1) + vel
 func super_bounce_particles_():
-		super_bounce_particles.position = position + Vector2(-sin(rotation), cos(rotation))
-		super_bounce_particles.direction = Vector2(-sin(rotation), cos(rotation))
-		super_bounce_particles.emitting =  true
-		
+	var speed = sqrt(make_positive(velocity.x ** 2) + make_positive(velocity.y ** 2))
+	super_bounce_particles.position = position + Vector2(-sin(rotation), cos(rotation))
+	super_bounce_particles.direction = Vector2(-sin(rotation), cos(rotation))
+	super_bounce_particles.initial_velocity_min = speed * 0.25
+	super_bounce_particles.initial_velocity_max = speed * 0.3
+	super_bounce_particles.lifetime = 55 / speed + 0.3
+	super_bounce_particles.amount = int(speed / 5)
+	super_bounce_particles.emitting =  true
+	
 func bounce(collision):
 	var positive_rotation
 	if collision == floor:
@@ -97,12 +103,13 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 	# idle animation only of you stand up
-	var idle_timer = 0.0
 	if is_on_floor() and rotation >= -0.8 and rotation <= 0.8 and not Input.is_action_pressed("jump"):
 		idle_timer += delta
-		if idle_timer > 1:
+		if idle_timer > 1.5:
 			animated_sprite.play("idle") 
+			
 	elif animated_sprite.animation == "idle":
 		idle_timer = 0
 		animated_sprite.stop()
