@@ -7,9 +7,6 @@ var textures = ["res://sprites/heart/heart 05.png",
  				"res://sprites/heart/heart 02.png",
  				"res://sprites/heart/heart 00.png"]
 
-func _ready() -> void:
-	pass 
-
 # just for testing!!!
 """func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
