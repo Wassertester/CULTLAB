@@ -54,7 +54,7 @@ func go_to_checkpoint():
 	camera.emit("player")
 
 func start_island():
-	player.position = Vector2(-14424, -130)
+	player.position = Vector2(-14424, -130)#-14424  -130
 	player.stop()
 	player.rotation = 0
 	settings.menu_button = true
