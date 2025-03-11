@@ -222,3 +222,6 @@ func heal():
 		return
 	health = max_health
 	update_HUD.emit(max_health, 0.2)
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	take_damage(1)
