@@ -12,7 +12,7 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -200.0
 const rotation_multiplier = 0.02
 const head_bounce_multiplier = 0.8
-const friction = 0.8667
+const friction = 0.816667
 const max_jump_multiplier = 1.8
 enum {floor, wall, ceiling}
 
@@ -91,7 +91,7 @@ func bounce(collision):
 	animated_sprite.play("bounce")
 	super_bounce = false
 	velocety_after_bounce = velocity
-	superness = 40
+	superness = 45
 	
 func _physics_process(delta: float) -> void:
 	# auf Boden verlangsamen

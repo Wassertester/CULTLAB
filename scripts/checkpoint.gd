@@ -15,7 +15,7 @@ func _on_body_entered(body: Node2D) -> void:
 	
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	if game.save_state.respawn_cords == global_position + Vector2(0, 50):
+	if  game.save_state.respawn_cords == global_position + Vector2(0, 50):
 		flag.position = Vector2(0, -32)
 	else:
 		flag.position = Vector2(0, 16)
