@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b76mobpe643tr"]
+[gd_scene load_steps=19 format=3 uid="uid://b76mobpe643tr"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ep80i"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/jump_trail.gd" id="10_urmgo"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="11_8wdj2"]
 [ext_resource type="Texture2D" uid="uid://cj1qmpqagtse7" path="res://sprites/heart/heart 00.png" id="11_o7ce1"]
+[ext_resource type="Texture2D" uid="uid://dck6yx5qmuunb" path="res://sprites/charecter/weißer pixel.png" id="11_s02gj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obvsr"]
 radius = 7.0
@@ -95,30 +96,6 @@ func _on_camera(str) -> void:
 		enabled = false
 "
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vre8n"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uvvde"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5mg84"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jh31x"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p12p4"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_owyqp"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c3fka"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sy6e3"]
-load_path = "res://.godot/imported/white particle.png-374ba42999a55610a9896d5a9256ebe1.ctex"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xjjx"]
 radius = 6.0
 
@@ -156,42 +133,42 @@ script = ExtResource("10_urmgo")
 [node name="Sprite2D" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.862745)
 position = Vector2(-0.5, -4.5)
-texture = SubResource("CompressedTexture2D_vre8n")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D2" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.823529)
 position = Vector2(1.5, -8.5)
-texture = SubResource("CompressedTexture2D_uvvde")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D3" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.784314)
 position = Vector2(-0.5, -8.5)
-texture = SubResource("CompressedTexture2D_5mg84")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D4" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.745098)
 position = Vector2(0.5, -8.5)
-texture = SubResource("CompressedTexture2D_jh31x")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D5" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.705882)
 position = Vector2(-0.5, -7.5)
-texture = SubResource("CompressedTexture2D_p12p4")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D6" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.647059)
 position = Vector2(-0.5, -6.5)
-texture = SubResource("CompressedTexture2D_owyqp")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D7" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.588235)
 position = Vector2(0.5, -6.5)
-texture = SubResource("CompressedTexture2D_c3fka")
+texture = ExtResource("11_s02gj")
 
 [node name="Sprite2D8" type="Sprite2D" parent="player_script/Jump_trail"]
 modulate = Color(1, 1, 1, 0.529412)
 position = Vector2(-0.5, -5.5)
-texture = SubResource("CompressedTexture2D_sy6e3")
+texture = ExtResource("11_s02gj")
 
 [node name="RayCastUntenR" type="RayCast2D" parent="player_script"]
 target_position = Vector2(3, 10)
