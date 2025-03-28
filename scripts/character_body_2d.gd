@@ -27,7 +27,7 @@ var jump_held = 1
 var switched_rotation
 var idle_timer = 0.0
 
-var superness: int = 0
+var superness: float = 0.0
 var do_rotation = true
 var super_bounce: bool = false
 var you_can_su_bounce: bool = true
@@ -128,7 +128,7 @@ func _physics_process(delta: float) -> void:
 	
 	# super bounce handling
 	if superness > 8:
-		superness -= 2
+		superness -= 1.8
 	else:
 		super_bounce = false
 	
