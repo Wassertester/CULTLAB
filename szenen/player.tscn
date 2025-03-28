@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b76mobpe643tr"]
+[gd_scene load_steps=21 format=3 uid="uid://b76mobpe643tr"]
 
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_dvg5l"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ep80i"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/hud.gd" id="11_8wdj2"]
 [ext_resource type="Texture2D" uid="uid://cj1qmpqagtse7" path="res://sprites/heart/heart 00.png" id="11_o7ce1"]
 [ext_resource type="Texture2D" uid="uid://dck6yx5qmuunb" path="res://sprites/charecter/weißer pixel.png" id="11_s02gj"]
+[ext_resource type="Script" path="res://scripts/dessert.gd" id="12_lby36"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obvsr"]
 radius = 7.0
@@ -98,6 +99,9 @@ func _on_camera(str) -> void:
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xjjx"]
 radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwe7p"]
+size = Vector2(8, 8)
 
 [node name="player" type="Node2D"]
 script = ExtResource("1_ep80i")
@@ -185,6 +189,19 @@ input_pickable = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_0xjjx")
 
+[node name="dessert" type="Area2D" parent="player_script"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("12_lby36")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_script/dessert"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_hwe7p")
+
+[node name="Timer" type="Timer" parent="player_script/dessert"]
+wait_time = 12.0
+one_shot = true
+
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(-14424, -129)
 target_position = Vector2(9, 0)
@@ -242,5 +259,10 @@ color = Color(0, 1, 1, 1)
 [connection signal="update_HUD" from="player_script" to="health_system/HUD" method="_on_player_script_update_hud"]
 [connection signal="area_entered" from="player_script/Area2D" to="player_script" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="player_script/Area2D" to="player_script" method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="player_script/dessert" to="player_script/dessert" method="_on_area_entered"]
+[connection signal="area_exited" from="player_script/dessert" to="player_script/dessert" method="_on_area_exited"]
+[connection signal="body_entered" from="player_script/dessert" to="player_script/dessert" method="_on_body_entered"]
+[connection signal="body_exited" from="player_script/dessert" to="player_script/dessert" method="_on_body_exited"]
+[connection signal="timeout" from="player_script/dessert/Timer" to="player_script/dessert" method="_on_timer_timeout"]
 [connection signal="timeout" from="health_system/death_Timer" to="player_script" method="_on_timer_timeout"]
 [connection signal="timeout" from="health_system/imunity_timer" to="player_script" method="_on_imunity_timer_timeout"]
