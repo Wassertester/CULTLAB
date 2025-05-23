@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://ddp0at5hyj2ps"]
+[gd_scene load_steps=50 format=3 uid="uid://ddp0at5hyj2ps"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_dsqwm"]
 [ext_resource type="Texture2D" uid="uid://drti02ria6on0" path="res://sprites/temporary art/world_tileset.png" id="1_hgroi"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b3lcmqisiyf8l" path="res://szenen/settings.tscn" id="6_stiwb"]
 [ext_resource type="Texture2D" uid="uid://tfoxy2onr4wr" path="res://sprites/Teilmap/Sprite-0004.png" id="7_uircf"]
 [ext_resource type="PackedScene" uid="uid://dlbfxy7vngjju" path="res://szenen/checkpoint.tscn" id="8_d2cvk"]
+[ext_resource type="Texture2D" uid="uid://e3xtmwy6ull4" path="res://sprites/Teilmap/Sandteilmapilja.png" id="8_t4167"]
 [ext_resource type="Texture2D" uid="uid://lj0gaenb3tu4" path="res://sprites/temporary art/icon.svg" id="9_a23c6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hou0o"]
@@ -752,6 +753,18 @@ texture = ExtResource("7_uircf")
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b28cy"]
+texture = ExtResource("8_t4167")
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_sf2ki"]
 physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 64
@@ -772,6 +785,7 @@ sources/1 = SubResource("TileSetAtlasSource_v2vsl")
 sources/3 = SubResource("TileSetAtlasSource_gdg44")
 sources/4 = SubResource("TileSetAtlasSource_lhbsg")
 sources/5 = SubResource("TileSetAtlasSource_l3s88")
+sources/7 = SubResource("TileSetAtlasSource_b28cy")
 
 [sub_resource type="TileSet" id="TileSet_t8w1u"]
 terrain_set_0/mode = 0
