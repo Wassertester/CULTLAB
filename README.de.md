@@ -13,7 +13,7 @@ Wenn du dir den Quellcode genauer anschauen willst, kannst du folgenden Schritte
     ```
 
     An sonsten kannst du die Dateien auch als zip runterladen:
-    1. Gehe zur [repository page](https://github.com/owner/repo).
+    1. Gehe zur [repository page](https://github.com/Wassertester/CULTLAB).
     2. Klicke auf den **Code** Knopf.
     3. Wähle **Download ZIP** aus.
     4. Extrahiere die heruntergeladene ZIP Datei in deinen bevorzugten Ordner.

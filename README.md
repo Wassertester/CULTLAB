@@ -14,7 +14,7 @@ If you want to play around in the source code, follow these steps:
     git clone https://github.com/Wassertester/CULTLAB.git
     ```
     Other wise you can Download everything as a ZIP:
-    1. Go to the [repository page](https://github.com/owner/repo).
+    1. Go to the [repository page](https://github.com/Wassertester/CULTLAB).
     2. Click the green **Code** button.
     3. Select **Download ZIP**.
     4. Extract the downloaded ZIP file to your preferred location.
