@@ -203,6 +203,7 @@ func take_damage(amount):
 	imunity_frame = true
 	imunity_timer.start()
 	if health <= 0:
+		health = 0
 		death_timer.start()
 		Engine.time_scale = 0.2
 	update_HUD.emit(health, 1.0)
@@ -213,7 +214,10 @@ func _on_timer_timeout() -> void:
 	game.respawn()
 	
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	take_damage(1)
+	if area.name == "DEATH":
+		take_damage(999)
+	else:
+		take_damage(1)
 
 func _on_imunity_timer_timeout() -> void:
 	imunity_frame = false

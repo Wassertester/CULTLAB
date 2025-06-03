@@ -3,6 +3,12 @@ var in_dessert: bool = false
 @onready var timer: Timer = $Timer
 @onready var player: CharacterBody2D = $".."
 
+func _ready() -> void:
+	wüste(false)
+	for area in get_overlapping_areas():
+		if area.name == "dessert":
+			wüste(true)
+
 func _process(delta: float) -> void:
 	#print(player.modulate.s)
 	if in_dessert:
@@ -30,7 +36,7 @@ func _on_timer_timeout() -> void:
 		await get_tree().create_timer(3.0).timeout
 		
 func wüste(hot: bool):
-	#print(hot)
+	#                                                           print(hot)
 	in_dessert = hot
 	if hot and timer.is_stopped():
 		timer.start()
